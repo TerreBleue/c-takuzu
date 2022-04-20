@@ -5,8 +5,8 @@
 
 #define VIES 3
 
-int*** cre
 bool good_colonne(int**, int*, int);
 bool good_ligne(int**, int*, int);
 char** creer_masque(int);
+void afficher_grille(int**, char**);
 #endif //PROJET_TAKUZU_FUNCTIONS_H

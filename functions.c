@@ -34,3 +34,17 @@ char ** creer_masque(int Taille) {
     free(ligne_masque);
     return masque;
 }
+void afficher_grille(int** mat_solution, char** masque) {
+    int taille = (int) strlen(masque[0]);
+    for (int i = 0; i < taille; ++i) {
+        printf("%d", i+1);
+    }
+    printf("\n");
+    for (int i = 0; i < strlen(masque[i]); ++i) {
+        for (int j = 0; j < strlen(masque[i]); ++j) {
+            if (masque[i][j] == '1') printf("%d", mat_solution[i][j]);
+            else printf(" ");
+        }
+        printf("%s\n", 'A'+i);
+    }
+}
