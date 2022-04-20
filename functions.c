@@ -31,4 +31,6 @@ char ** creer_masque(int Taille) {
         }while(strlen(ligne_masque)!= Taille && ligne_est_binaire == false);
         masque[i]= ligne_masque;
     }
+    free(ligne_masque);
+    return masque;
 }
