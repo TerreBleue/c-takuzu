@@ -1,10 +1,10 @@
-//
-// Created by matth_uaxpdbk on 06/04/2022.
-//
-
 #ifndef PROJET_TAKUZU_FUNCTIONS_H
 #define PROJET_TAKUZU_FUNCTIONS_H
+#include <stdlib.h>
+#include <stdbool.h>
 
-typedef enum {true, False} BOOL;
+#define VIES 3
+bool good_colonne(int**, int*, int);
+bool good_ligne(int**, int*, int);
 
 #endif //PROJET_TAKUZU_FUNCTIONS_H
