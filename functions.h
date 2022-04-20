@@ -6,5 +6,5 @@
 #define VIES 3
 bool good_colonne(int**, int*, int);
 bool good_ligne(int**, int*, int);
-
+int ** creer_masque(int**, int);
 #endif //PROJET_TAKUZU_FUNCTIONS_H
