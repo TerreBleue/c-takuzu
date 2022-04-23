@@ -41,7 +41,7 @@ void afficher_grille(int **mat_solution, char **masque) {
             if (masque[i][j] == '1') { printf("%d", mat_solution[i][j]); }
             else { printf(" "); }
         }
-        printf("%s\n", 'A' + i);
+        printf("%c\n", 'A' + i);
     }
 }
 
