@@ -17,12 +17,14 @@ void jouer(int** tab, char** masque, int vies) {
 
     printf("Entrer l'emplacement (indices ligne et colonne) et la valeur sous la forme : lignecolonne valeur\n");
     while (vies > 0 && grille_completee(masque) == false) { // jeu
-        printf("emplacement (ligne colonne) et valeur =");
-        do { scanf("%2s %1d", emplacement, &val_entree); }
-        while ('1' <= emplacement[0] && emplacement[0] <= '1' + taille - 1
-               && 'A' <= emplacement[1] && emplacement[1] <= 'A' + taille - 1
-               && (val_entree == 0 || val_entree == 1)
-               && masque[(int) (emplacement[0] - '1')][(int) (emplacement[1] - 'A')] == '1');
+        do {
+            printf("empl et val=");
+            scanf("%2s %1d", emplacement, &val_entree);
+        } while ('1' + taille - 1 < emplacement[0] || emplacement[0] < '1' // ligne
+                 || 'A' + taille - 1 < emplacement[1] || emplacement[1] < 'A' // colonne
+                 || val_entree != 0 && val_entree != 1
+                 || masque[(int) (emplacement[0] - '1')][(int) (emplacement[1] - 'A')] == '1'); // valeur déjà affichée
+        printf("oui");
         // comparer avec grille solution
     }
 }
