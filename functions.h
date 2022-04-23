@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-#define VIES 3
+
 #define SIZE 4
 
 int** static_to_dynamic(int mat[SIZE][SIZE], int n);
