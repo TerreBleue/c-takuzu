@@ -5,9 +5,9 @@
 #include <stdbool.h>
 
 char** creer_masque(int Taille) {
-    char** masque = (char**) malloc(Taille * sizeof(char*));
+    char** masque = (char**) calloc(Taille, sizeof(char*));
     for (int i = 0; i < Taille; i++) {
-        masque[i] = (char*) malloc((Taille+1) * sizeof(char));
+        masque[i] = (char*) calloc((Taille+1), sizeof(char));
     }
     return masque;
 }
