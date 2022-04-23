@@ -4,8 +4,9 @@
 #include <stdlib.h>
 
 #define VIES 3
+#define SIZE 4
 
-int** static_to_dynamic(int** mat, int n);
+int** static_to_dynamic(int mat[SIZE][SIZE], int n);
 char** creer_masque(int);
 char** masque_manuel(int Taille);
 char** masque_aleatoire(int taille);

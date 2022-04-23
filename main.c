@@ -19,7 +19,7 @@ int main(void) {
      */
     char** dyn_masque = masque_aleatoire(SIZE);
 
-    int** mat = static_to_dynamic((int**) m4, SIZE);
+    int** mat = static_to_dynamic(m4, SIZE);
     afficher_grille(mat, dyn_masque);
 
 

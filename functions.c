@@ -4,13 +4,16 @@
 #include <string.h>
 #include <stdbool.h>
 
+
+
 char** creer_masque(int Taille) {
     char** masque = (char**) calloc(Taille, sizeof(char*));
     for (int i = 0; i < Taille; i++) {
-        masque[i] = (char*) calloc((Taille+1), sizeof(char));
+        masque[i] = (char*) calloc((Taille + 1), sizeof(char));
     }
     return masque;
 }
+
 char** masque_manuel(int Taille) {
     char** masque = creer_masque(Taille);
     char* ligne_masque = calloc(Taille, sizeof(char));
@@ -48,10 +51,11 @@ void afficher_grille(int** mat_solution, char** masque) {
     }
 }
 
-int** static_to_dynamic(int** mat, int n) {
+int** static_to_dynamic(int mat[SIZE][SIZE], int n) {
     int** new_mat = calloc(n, sizeof(int*));
     for (int i = 0; i < n; ++i) {
         new_mat[i] = calloc(n, sizeof(int));
+        for (int j = 0; j < n; ++j) new_mat[i][j] = mat[i][j];
     }
     return new_mat;
 }
