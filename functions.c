@@ -1,10 +1,10 @@
+
 #include "functions.h"
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <stdbool.h>
 
-
+void pause() {
+    printf("Appuyez sur Enter pour continuer...");
+    getchar();
+}
 char** creer_masque(int taille) {
     char** masque = (char**) calloc(taille, sizeof(char*));
     for (int i = 0; i < taille; i++) {
@@ -52,8 +52,11 @@ void afficher_grille(int** mat_solution, char** masque) {
 
     for (int i = 0; i < taille; ++i) {
         for (int j = 0; j < taille; ++j) {
-            if (masque[i][j] == '1') { printf("%d ", mat_solution[i][j]); }
-            else { printf("X "); }
+            if (masque[i][j] == '1') {
+                printf("%d ", mat_solution[i][j]);
+            } else {
+                printf("X ");
+            }
         }
         printf("- %d\n", i + 1); // affichage indice lignes
     }
