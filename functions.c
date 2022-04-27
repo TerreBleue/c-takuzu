@@ -1,5 +1,9 @@
 
 #include "functions.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdbool.h>
 
 void pause() {
     printf("Appuyez sur Enter pour continuer...");
@@ -87,4 +91,17 @@ char** masque_aleatoire(int taille) {
         }
     }
     return masque;
+}
+
+void actualiser_grille_jeu(int** sol, char** masque, char** grille_jeu) {
+    int taille = (int) strlen(masque[0]);
+    for (int i = 0; i < taille; i++) {
+        for (int j = 0; j < taille; j++) {
+            if (masque[i][j] == '1') {
+                grille_jeu[i][j] = (char) ('0' + sol[i][j]);
+            } else {
+                grille_jeu[i][j] = 'X';
+            }
+        }
+    }
 }

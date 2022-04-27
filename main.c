@@ -14,9 +14,9 @@
 int main(void) {
     srand((unsigned int) time(NULL));
 
-    char** dyn_masque = masque_aleatoire(SIZE);
     int** mat = static_to_dynamic(m4, SIZE);
 
+    char** dyn_masque = masque_aleatoire(SIZE);
     jouer(mat, dyn_masque, VIES);
 
     // libération finale des éléments dynamiques
