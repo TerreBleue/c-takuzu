@@ -5,6 +5,7 @@ void pause() {
     printf("Appuyez sur Enter pour continuer...");
     getchar();
 }
+
 char** creer_masque(int taille) {
     char** masque = (char**) calloc(taille, sizeof(char*));
     for (int i = 0; i < taille; i++) {
