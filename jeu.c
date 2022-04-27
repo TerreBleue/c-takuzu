@@ -15,6 +15,8 @@ void jouer(int** tab, char** masque, int vies) {
 
     printf("Entrer l'emplacement (indices ligne et colonne) et la valeur sous la forme : lignecolonne valeur\n");
     while (vies > 0 && grille_completee(masque) == false) { // jeu
+        actualiser_grille_jeu(tab, masque, grille_jeu);
+
         do {
             printf("empl et val=");
             scanf("%2s %1d", emplacement, &val_entree);
@@ -22,8 +24,11 @@ void jouer(int** tab, char** masque, int vies) {
                  || 'A' + taille - 1 < emplacement[1] || emplacement[1] < 'A' // colonne
                  || val_entree != 0 && val_entree != 1
                  || masque[(int) (emplacement[0] - '1')][(int) (emplacement[1] - 'A')] == '1'); // valeur déjà affichée
-        printf("oui");
-        // comparer avec grille solution
+
+        if (tab[(int) (emplacement[0] - '1')][(int) (emplacement[1] - 'A')] == val_entree) { // correct
+            printf("Coup correct !\n");
+            masque[(int) (emplacement[0] - '1')][(int) (emplacement[1] - 'A')] = '1';
+        } else { printf("Coup incorrect... Il vous reste %d vie(s).\n", --vies); }
     }
     afficher_grille(tab, masque);
     if (vies == 0) {

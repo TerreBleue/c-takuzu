@@ -78,7 +78,7 @@ int** static_to_dynamic(const int mat[SIZE][SIZE], int taille) {
 }
 
 void release_mat(int*** mat, int taille) {
-    for (int i = 0; i < taille; ++i) free(*mat[i]);
+    for (int i = 0; i < taille; ++i) free((*mat)[i]);
     free(*mat);
     *mat = NULL;
 }
