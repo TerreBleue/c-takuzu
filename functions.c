@@ -28,17 +28,16 @@ char** masque_manuel(int taille) {
     for (int i = 0; i < taille; i++) {
         do {
             printf("masque[%d]=", i);
-            ligne_masque = "";
             scanf("%s", ligne_masque);
             ligne_est_binaire = true;
             j = -1;
 
             while (ligne_est_binaire == true && ++j < strlen(ligne_masque)) {
-                if (ligne_masque[j] != '1' && ligne_masque[j] != '0') continue;
-                ligne_est_binaire = false;
+                if (ligne_masque[j] != '1' && ligne_masque[j] != '0') ligne_est_binaire = false;
             }
+
         } while (strlen(ligne_masque) != taille || ligne_est_binaire == false);
-        masque[i] = ligne_masque;
+        strcpy(masque[i], ligne_masque);
     }
 
     free(ligne_masque);
@@ -46,7 +45,7 @@ char** masque_manuel(int taille) {
     return masque;
 }
 
-void afficher_grille(int** mat_solution, char** masque) {
+void afficher_grille_masque(int** mat_solution, char** masque) {
     int taille = (int) strlen(masque[0]);
 
     // affichage indice des colonnes
@@ -104,4 +103,26 @@ void actualiser_grille_jeu(int** sol, char** masque, char** grille_jeu) {
             }
         }
     }
+}
+
+void afficher_grille(char** grille) {
+    int taille = (int) strlen(grille[0]);
+
+    // affichage indice des colonnes
+    for (int i = 0; i < taille; ++i) printf("%c ", 'A' + i);
+    printf("\n");
+    for (int i = 0; i < taille; ++i) printf("| ");
+    printf("\n");
+
+    for (int i = 0; i < taille; ++i) {
+        for (int j = 0; j < taille; ++j) printf("%c ", grille[i][j]);
+        printf("- %d\n", i + 1); // affichage indice lignes
+    }
+    return (void) printf("\n");
+}
+
+void release_masque(char*** masque) {
+    for (int i = 0; i < SIZE; ++i) free((*masque)[i]);
+    free(*masque);
+    *masque = NULL;
 }
