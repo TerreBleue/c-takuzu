@@ -2,7 +2,7 @@
 
 int nombre_manquants(const char* str) {
     int taille = (int) strlen(str), cpt = 0;
-    for (int i = 0; i < taille; ++i) if (str[i] == 'X') cpt++;
+    for (int i = 0; i < taille; ++i) if (str[i] == INCONNUE) cpt++;
     return cpt;
 }
 

@@ -4,6 +4,7 @@
 #include "jeu.h"
 
 #include <stdio.h>
-void menu();
+
+int menu();
 
 #endif //PROJET_TAKUZU_MENU_H

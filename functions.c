@@ -10,6 +10,10 @@ void pause() {
     getchar();
 }
 
+int size(char** str) {
+    return (int) strlen(str[0]);
+}
+
 char** creer_masque(int taille) {
     char** masque = (char**) calloc(taille, sizeof(char*));
     for (int i = 0; i < taille; i++) {
@@ -46,7 +50,7 @@ char** masque_manuel(int taille) {
 }
 
 void afficher_grille_masque(char** solution, char** masque) {
-    int taille = (int) strlen(masque[0]);
+    int taille = size(solution);
 
     // affichage indice des colonnes
     for (int i = 0; i < taille; ++i) printf("%c ", 'A' + i);
@@ -59,7 +63,7 @@ void afficher_grille_masque(char** solution, char** masque) {
             if (masque[i][j] == '1') {
                 printf("%c ", solution[i][j]);
             } else {
-                printf("X ");
+                printf("%c ", INCONNUE);
             }
         }
         printf("- %d\n", i+1); // affichage indice lignes
@@ -121,20 +125,20 @@ char** masque_aleatoire(int taille) {
 }
 
 void actualiser_grille_jeu(char** sol, char** masque, char** grille_jeu) {
-    int taille = (int) strlen(masque[0]);
+    int taille = size(sol);
     for (int i = 0; i < taille; i++) {
         for (int j = 0; j < taille; j++) {
             if (masque[i][j] == '1') {
                 grille_jeu[i][j] = sol[i][j];
             } else {
-                grille_jeu[i][j] = 'X';
+                grille_jeu[i][j] = INCONNUE;
             }
         }
     }
 }
 
 void afficher_grille(char** grille) {
-    int taille = (int) strlen(grille[0]);
+    int taille = size(grille);
 
     // affichage indice des colonnes
     for (int i = 0; i < taille; ++i) printf("%c ", 'A' + i);
@@ -150,7 +154,8 @@ void afficher_grille(char** grille) {
 }
 
 void release_masque(char*** masque) {
-    for (int i = 0; i < SIZE; ++i) free((*masque)[i]);
+    int taille = size(*masque);
+    for (int i = 0; i < taille; ++i) free((*masque)[i]);
     free(*masque);
     *masque = NULL;
 }

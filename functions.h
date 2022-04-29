@@ -5,11 +5,12 @@
 #include <stdio.h>
 #include <string.h>
 
-#define SIZE 4
 #define VIES 3
+#define INCONNUE '.'
 
 
 void pause();
+int size(char** str);
 char** static_to_dynamic(int taille);
 char** creer_masque(int taille);
 void actualiser_grille_jeu(char** sol, char** masque, char** grille_jeu);

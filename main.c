@@ -7,6 +7,5 @@
 int main(void) {
     srand((unsigned int) time(NULL));
 
-    menu();
-    return 0;
+    return menu();
 }
