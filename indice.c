@@ -1,8 +1,8 @@
 #include "indice.h"
 
 int nombre_manquants(const char* str) {
-    int cpt = 0;
-    for (int i = 0; i < SIZE; ++i) if (str[i] == 'X') cpt++;
+    int taille = (int) strlen(str), cpt = 0;
+    for (int i = 0; i < taille; ++i) if (str[i] == 'X') cpt++;
     return cpt;
 }
 

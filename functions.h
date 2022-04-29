@@ -10,14 +10,13 @@
 
 
 void pause();
-int** static_to_dynamic(const int mat[SIZE][SIZE], int taille);
+char** static_to_dynamic(int taille);
 char** creer_masque(int taille);
-void actualiser_grille_jeu(int** sol, char** masque, char** grille_jeu);
+void actualiser_grille_jeu(char** sol, char** masque, char** grille_jeu);
 void afficher_grille(char** grille);
 char** masque_manuel(int taille);
 char** masque_aleatoire(int taille);
-void afficher_grille_masque(int** mat, char** masque);
-void release_mat(int*** mat, int taille);
-void release_masque(char*** masque);
+void afficher_grille_masque(char** solution, char** masque);
+void release_mat(char*** mat);
 
 #endif //PROJET_TAKUZU_FUNCTIONS_H

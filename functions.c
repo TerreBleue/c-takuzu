@@ -45,7 +45,7 @@ char** masque_manuel(int taille) {
     return masque;
 }
 
-void afficher_grille_masque(int** mat_solution, char** masque) {
+void afficher_grille_masque(char** solution, char** masque) {
     int taille = (int) strlen(masque[0]);
 
     // affichage indice des colonnes
@@ -57,26 +57,54 @@ void afficher_grille_masque(int** mat_solution, char** masque) {
     for (int i = 0; i < taille; ++i) {
         for (int j = 0; j < taille; ++j) {
             if (masque[i][j] == '1') {
-                printf("%d ", mat_solution[i][j]);
+                printf("%c ", solution[i][j]);
             } else {
                 printf("X ");
             }
         }
-        printf("- %d\n", i + 1); // affichage indice lignes
+        printf("- %d\n", i+1); // affichage indice lignes
     }
     printf("\n");
 }
 
-int** static_to_dynamic(const int mat[SIZE][SIZE], int taille) {
-    int** new_mat = calloc(taille, sizeof(int*));
+char** static_to_dynamic(int taille) {
+    char m4[4][4] = {
+            "0011",
+            "0110",
+            "1001",
+            "1100"
+    };
+
+    char m8[8][8] = {
+            "00001111",
+            "00111100",
+            "01001011",
+            "01111000",
+            "10000111",
+            "10110100",
+            "11000011",
+            "11100001"
+    };
+
+    char** new_mat = (char**) calloc(taille, sizeof(char*));
     for (int i = 0; i < taille; ++i) {
-        new_mat[i] = calloc(taille, sizeof(int));
-        for (int j = 0; j < taille; ++j) new_mat[i][j] = mat[i][j];
+        new_mat[i] = (char*) calloc(taille, sizeof(char));
+        switch (taille) {
+            case 4:
+                strncpy(new_mat[i], m4[i], taille);
+                break;
+            case 8:
+                strncpy(new_mat[i], m8[i], taille);
+                break;
+            default:
+                printf("La taille de matrice %d n'est pas prise en charge.\n", taille);
+        }
     }
     return new_mat;
 }
 
-void release_mat(int*** mat, int taille) {
+void release_mat(char*** mat) {
+    int taille = (int) strlen((*mat)[0]);
     for (int i = 0; i < taille; ++i) free((*mat)[i]);
     free(*mat);
     *mat = NULL;
@@ -92,12 +120,12 @@ char** masque_aleatoire(int taille) {
     return masque;
 }
 
-void actualiser_grille_jeu(int** sol, char** masque, char** grille_jeu) {
+void actualiser_grille_jeu(char** sol, char** masque, char** grille_jeu) {
     int taille = (int) strlen(masque[0]);
     for (int i = 0; i < taille; i++) {
         for (int j = 0; j < taille; j++) {
             if (masque[i][j] == '1') {
-                grille_jeu[i][j] = (char) ('0' + sol[i][j]);
+                grille_jeu[i][j] = sol[i][j];
             } else {
                 grille_jeu[i][j] = 'X';
             }
