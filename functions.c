@@ -66,7 +66,7 @@ void afficher_grille_masque(char** solution, char** masque) {
                 printf("%c ", INCONNUE);
             }
         }
-        printf("- %d\n", i+1); // affichage indice lignes
+        printf("- %d\n", i + 1); // affichage indice lignes
     }
     printf("\n");
 }
