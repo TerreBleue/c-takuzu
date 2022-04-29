@@ -8,6 +8,6 @@
 
 
 int nombre_manquants(const char* str);
-void donner_indice(char** mat);
+int donner_indice(char** mat, int* i_res1, int* i_res2);
 
 #endif //PROJET_TAKUZU_INDICE_H

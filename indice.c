@@ -1,15 +1,15 @@
 #include "indice.h"
 
-int nombre_manquants(const char* str) {
+int nombre_manquants(const char *str) {
     int taille = (int) strlen(str), cpt = 0;
     for (int i = 0; i < taille; ++i) if (str[i] == INCONNUE) cpt++;
     return cpt;
 }
 
-void donner_indice(char** mat) {
-    int taille = size(mat), bin;
+int donner_indice(char **mat, int *i_res1, int *i_res2) {
+    int taille = size(mat), bin, res;
     bool indice_trouve = false;
-    char nb_teste, inv_nb, *str = (char*) calloc(taille, sizeof(char));
+    char nb_teste, inv_nb, *str = (char *) calloc(taille, sizeof(char));
 
     for (int i = 0; i < taille; ++i) {
         for (int j = 0; j < taille; ++j) {
@@ -24,7 +24,7 @@ void donner_indice(char** mat) {
                     || 0 < j && j < taille - 2 && mat[i][j + 1] == nb_teste && mat[i][j + 2] == nb_teste
                     || 1 < j && j < taille - 1 && mat[i][j - 1] == nb_teste && mat[i][j - 2] == nb_teste
                         ) {
-                    printf("Au-dessus, en dessous, à gauche, à droite d’une série de deux %c, il ne peut y avoir qu’un %c.\n",
+                    printf("Aux bouts d'une suite de deux %c, il ne peut y avoir qu’un %c.\n",
                            nb_teste, inv_nb);
                     indice_trouve = true;
                 } else if (
@@ -35,7 +35,9 @@ void donner_indice(char** mat) {
                 }
 
                 if (indice_trouve == true) {
-                    printf("Emplacement recommandé : %d%c\n", i + 1, j + 'A');
+                    printf("Emplacement : %d%c\n", i + 1, j + 'A');
+                    *i_res1 = i, *i_res2 = j;
+                    res = 1;
                 }
             }
 
@@ -52,9 +54,10 @@ void donner_indice(char** mat) {
 
                 if (indice_trouve == true) {
                     printf("Il ne peut pas y avoir deux lignes identiques dans une grille.\n"
-                           "Lignes en question : %d et %d\n", i + 1, j + 1);
+                           "Lignes : %d et %d\n", i + 1, j + 1);
+                    *i_res1 = i, *i_res2 = j;
+                    res = 2;
                 }
-
             }
 
             if (indice_trouve == false) {
@@ -64,7 +67,7 @@ void donner_indice(char** mat) {
                     indice_trouve = true;
 
                     for (int k = 0; k < taille; k++) {
-                        if (mat[k][i] != mat[k][j]) {
+                        if (str[k] != mat[k][j]) {
                             indice_trouve = false;
                             break;
                         }
@@ -72,16 +75,17 @@ void donner_indice(char** mat) {
 
                     if (indice_trouve == true) {
                         printf("Il ne peut pas y avoir deux colonnes identiques dans une grille.\n"
-                               "Colonnes en question : %d et %d\n", i + 1, j + 1);
+                               "Colonnes : %d et %d\n", i + 1, j + 1);
+                        *i_res1 = i, *i_res2 = j;
+                        res = 3;
                     }
-
                 }
             }
 
             if (indice_trouve == true) {
                 free(str);
                 str = NULL;
-                return;
+                return res;
             }
         }
     }
@@ -91,9 +95,11 @@ void donner_indice(char** mat) {
     // pas d'indice trouvé, on donne une case au hasard
     int n = rand() % taille, m = rand() % taille;
     while (mat[n][m] != INCONNUE) {
-        n = rand() % taille, m = rand() % taille;
+        i_res1 = rand() % taille, i_res2 = rand() % taille;
     }
 
-    return (void) printf("Pas d'indice trouvé, voici une case random : valeur '%c' à l'emplacement %d%c\n",
-                         mat[n][m], n + 1, m + 'A');
+    printf("Pas d'indice obtenable, voici une case random : valeur '%c' à l'emplacement %d%c\n",
+           mat[n][m], n + 1, m + 'A');
+    *i_res1 = n, *i_res2 = m;
+    return -1;
 }
