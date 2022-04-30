@@ -7,7 +7,7 @@
 #include <stdlib.h>
 
 
-int nombre_manquants(const char* str);
-int donner_indice(char** mat, int* i_res1, int* i_res2);
+int nombre_manquants(const char *str);
+int donner_indice(char **mat, char **sol, int *i_res1, int *i_res2);
 
 #endif //PROJET_TAKUZU_INDICE_H

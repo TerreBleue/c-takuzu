@@ -33,7 +33,7 @@ void jouer(char** sol, char** masque, int vies) {
         } else {
             printf("Coup incorrect... Il vous reste %d vie(s).\n", --vies);
             printf("\n");
-            donner_indice(grille_jeu, &_, &_);
+            donner_indice(grille_jeu, sol, &_, &_);
         }
     }
 

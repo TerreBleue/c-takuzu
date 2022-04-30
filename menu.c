@@ -32,19 +32,19 @@ int menu() {
                 masque = masque_manuel(taille);
                 afficher_grille_masque(sol, masque);
 
-                printf("0- Quitter le menu\n"
-                       "1- Appliquer des indices\n"
+                printf("1- Quitter le menu\n"
+                       "2- Appliquer des indices\n"
                        "Choisir l'entier correspondant.\n");
                 do {
                     printf("choix=");
                     scanf("%d", &choix);
-                } while (choix < -1 || choix > 2);
+                } while (choix < 1 || choix > 2);
 
-                if (choix == 0) break;
+                if (choix == 1) break;
                 grille = creer_masque(taille);
                 actualiser_grille_jeu(sol, masque, grille);
                 do {
-                    hint_code = donner_indice(grille, &n, &m);
+                    hint_code = donner_indice(grille, sol, &n, &m);
                     switch (hint_code) {
                         case 1:
                             grille[n][m] = sol[n][m];
@@ -58,9 +58,8 @@ int menu() {
                         default:
                             break;
                     }
+                    afficher_grille(grille);
                 } while (hint_code != -1);
-
-
 
                 break;
             case 2:
