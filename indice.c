@@ -63,7 +63,7 @@ bool colonnes_similaires(char **mat, int i, int j) {
     return sont_similaires;
 }
 
-int donner_indice(char **mat, char **sol, int *i_res1, int *i_res2) {
+int donner_indice(char **mat, char **sol, int *i_res1, int *i_res2, char *nb_ind) {
     int taille = size(mat), bin, res, temp;
     bool indice_trouve = false;
     char nb_teste;
@@ -77,17 +77,12 @@ int donner_indice(char **mat, char **sol, int *i_res1, int *i_res2) {
                     nb_teste = (char) ('0' + bin);
 
                     if (si_suite(mat, nb_teste, i, j) == true) {
-                        printf("Aux bouts d'une suite de deux %c, il ne peut y avoir qu’un %c.\n",
-                               nb_teste, '1' - bin);
-                        indice_trouve = true;
-                    } else if (si_entoure(mat, nb_teste, i, j)) {
-                        printf("Entre deux %c, il ne peut y avoir qu’un %c.\n", nb_teste, '1' - bin);
-                        indice_trouve = true;
-                    }
-
-                    if (indice_trouve == true) {
-                        printf("Emplacement : %d%c\n", i + 1, j + 'A');
                         *i_res1 = i, *i_res2 = j;
+                        *nb_ind = nb_teste;
+                        return 0;
+                    } else if (si_entoure(mat, nb_teste, i, j)) {
+                        *i_res1 = i, *i_res2 = j;
+                        *nb_ind = nb_teste;
                         return 1;
                     }
                 }
@@ -96,16 +91,12 @@ int donner_indice(char **mat, char **sol, int *i_res1, int *i_res2) {
             if (indice_trouve == false) { // TODO fix
                 indice_trouve = lignes_similaires(mat, i, j);
                 if (indice_trouve == true) {
-                    printf("Il ne peut pas y avoir deux lignes identiques dans une grille.\n"
-                           "Lignes : %d et %d\n", i + 1, j + 1);
                     *i_res1 = i, *i_res2 = j;
                     return 2;
                 }
             } else {
                 indice_trouve = colonnes_similaires(mat, i, j);
                 if (indice_trouve == true) {
-                    printf("Il ne peut pas y avoir deux colonnes identiques dans une grille.\n"
-                           "Colonnes : %c et %c\n", i + 'A', j + 'A');
                     *i_res1 = i, *i_res2 = j;
                     return 3;
                 }
@@ -118,8 +109,31 @@ int donner_indice(char **mat, char **sol, int *i_res1, int *i_res2) {
     do {
         n = rand() % taille, m = rand() % taille;
     } while (mat[n][m] != INCONNUE);
-    printf("Pas d'indice obtenable, voici une case choisie au hasard : valeur %c à l'emplacement %d%c\n",
-           sol[n][m], n + 1, m + 'A');
     *i_res1 = n, *i_res2 = m;
     return -1;
+}
+
+void afficher_indice(char **sol, int code, int i_res1, int i_res2, char nb_ind) {
+    char inv = nb_ind == '1' ? '0' : '1';
+    switch (code) {
+        case 0:
+            printf("Aux bouts d'une suite de deux %c, il ne peut y avoir qu’un %c.\n",
+                   nb_ind, inv);
+            printf("Emplacement : %d%c\n", i_res1 + 1, i_res2 + 'A');
+            break;
+        case 1:
+            printf("Entre deux %c, il ne peut y avoir qu’un %c.\n", nb_ind, inv);
+            printf("Emplacement : %d%c\n", i_res1 + 1, i_res2 + 'A');
+        case 2:
+            printf("Il ne peut pas y avoir deux lignes identiques dans une grille.\n"
+                   "Lignes : %d et %d\n", i_res1 + 1, i_res2 + 1);
+        case 3:
+            printf("Il ne peut pas y avoir deux colonnes identiques dans une grille.\n"
+                   "Colonnes : %c et %c\n", i_res1 + 'A', i_res2 + 'A');
+        case -1:
+            printf("Pas d'indice obtenable, voici une case choisie au hasard : valeur %c à l'emplacement %d%c\n",
+                   sol[i_res1][i_res2], i_res1 + 1, i_res2 + 'A');
+        default:
+            printf("Code non pris en charge\n");
+    }
 }
