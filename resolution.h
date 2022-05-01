@@ -4,52 +4,8 @@
 #import "jeu.h"
 
 
-bool grille_correcte(char **grille) {
-    int taille = size(grille), cpt_lig_0, cpt_col_0, cpt_sim, cpt_suite_lig, cpt_suite_col;
-    char suite_lig, suite_col;
-    for (int i = 0; i < taille; ++i) {
-        cpt_lig_0 = 0, cpt_col_0 = 0, cpt_sim = 0;
-        cpt_suite_lig = 0, cpt_suite_col = 0,
-        for (int j = 0; j < taille; ++j) {
-            if (grille[i][j] == '0') cpt_lig_0++;
-            if (grille[j][i] == '0') cpt_col_0++;
-
-            if (i != j) {
-                if (strcmp(grille[i], grille[j]) != 0) return false;
-                for (int k = 0; k < taille; ++k) if (grille[k][i] == grille[k][j]) cpt_sim++;
-                if (cpt_sim == taille) return false;
-            }
-
-            if (j == 0) {
-                suite_lig = grille[i][j];
-                suite_col = grille[j][i];
-            }
-            if (suite_lig == grille[i][j]) { cpt_suite_lig++; }
-            else {
-                suite_lig = grille[i][j];
-                cpt_suite_lig = 1;
-            }
-
-            if (suite_col == grille[j][i]) { cpt_suite_col++; }
-            else {
-                suite_col = grille[j][i];
-                cpt_suite_col = 1;
-            }
-
-            if (cpt_suite_lig > 2) return false;
-            if (cpt_suite_col > 2) return false;
-        }
-        if (cpt_lig_0 != taille / 2 || cpt_col_0 != taille / 2) return false;
-    }
-
-    return true;
-}
-
-int obtenir_indice_derniere_valeur(char **modifs) {
-    int i;
-    for (i = 0; modifs[i][0] != '\0'; ++i);
-    return i;
-}
+bool teste_valeur_valide(char** grille, );
+int modifier_derniere_valeur(char **modifs, char *str);
 
 // allouer au préalable modifs de taille taille * taille
 char **resoudre_grille(char **sol, char **masque, char **grille, char **modifs) {
