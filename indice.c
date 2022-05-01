@@ -49,7 +49,7 @@ bool colonnes_similaires(char **mat, int i, int j) {
         str[temp] = mat[temp][i];
         str2[temp] = mat[temp][j];
     }
-    str[taille] = '\0', str2[taille] = '\0';
+
     if (nombre_manquants(str) != 2 || nombre_manquants(str2) != 0) sont_similaires = false;
 
     temp = -1;
@@ -63,77 +63,83 @@ bool colonnes_similaires(char **mat, int i, int j) {
     return sont_similaires;
 }
 
-int donner_indice(char **mat, char **sol, int *i_res1, int *i_res2, char *nb_ind) {
-    int taille = size(mat), bin, res, temp;
-    bool indice_trouve = false;
+void modifier_indice(INDICE *indice, int i, int j, char nb_bin) {
+    indice->val_principale = i, indice->val_secondaire = j;
+    indice->nombre_binaire = nb_bin;
+}
+
+void donner_indice(INDICE* indice, char **mat) {
+    int taille = size(mat), i, j, bin;
     char nb_teste;
 
-
-    for (int i = 0; i < taille; ++i) {
-        for (int j = 0; j < taille; ++j) {
+    for (i = 0; i < taille; ++i) {
+        for (j = 0; j < taille; ++j) {
             if (mat[i][j] == INCONNUE) {
                 bin = -1;
-                while (indice_trouve == false && ++bin < 2) {
+                while (++bin < 2) {
                     nb_teste = (char) ('0' + bin);
 
-                    if (si_suite(mat, nb_teste, i, j) == true) {
-                        *i_res1 = i, *i_res2 = j;
-                        *nb_ind = nb_teste;
-                        return 0;
+                    if (si_suite(mat, nb_teste, i, j)) {
+                        indice->code = 0;
+                        return modifier_indice(indice, i, j, nb_teste);
                     } else if (si_entoure(mat, nb_teste, i, j)) {
-                        *i_res1 = i, *i_res2 = j;
-                        *nb_ind = nb_teste;
-                        return 1;
+                        indice->code = 1;
+                        return modifier_indice(indice, i, j, nb_teste);
                     }
                 }
             }
 
-            if (indice_trouve == false) { // TODO fix
-                indice_trouve = lignes_similaires(mat, i, j);
-                if (indice_trouve == true) {
-                    *i_res1 = i, *i_res2 = j;
-                    return 2;
-                }
-            } else {
-                indice_trouve = colonnes_similaires(mat, i, j);
-                if (indice_trouve == true) {
-                    *i_res1 = i, *i_res2 = j;
-                    return 3;
-                }
+            // TODO fix
+            if (lignes_similaires(mat, i, j)) {
+                indice->code = 2;
+                return modifier_indice(indice, i, j, '\0');
+            }
+
+            if (colonnes_similaires(mat, i, j)) {
+                indice->code = 3;
+                return modifier_indice(indice, i, j, '\0');
             }
         }
     }
 
     // pas d'indice trouvé, on donne une case au hasard
-    int n, m;
     do {
-        n = rand() % taille, m = rand() % taille;
-    } while (mat[n][m] != INCONNUE);
-    *i_res1 = n, *i_res2 = m;
-    return -1;
+        i = rand() % taille, j = rand() % taille;
+    } while (mat[i][j] != INCONNUE);
+    indice->code = -1;
+    return modifier_indice(indice, i, j, mat[i][j]);
 }
 
-void afficher_indice(char **sol, int code, int i_res1, int i_res2, char nb_ind) {
-    char inv = nb_ind == '1' ? '0' : '1';
-    switch (code) {
+void afficher_indice(char **sol, INDICE indice) {
+    char inv = indice.nombre_binaire == '1' ? '0' : '1';
+    switch (indice.code) {
         case 0:
-            printf("Aux bouts d'une suite de deux %c, il ne peut y avoir qu’un %c.\n",
-                   nb_ind, inv);
-            printf("Emplacement : %d%c\n", i_res1 + 1, i_res2 + 'A');
+            printf("Aux bouts d'une suite de deux %c, il ne peut y avoir qu’un %c.\n"
+                   "Emplacement : %d%c\n",
+                   indice.nombre_binaire, inv,
+                   indice.val_principale + 1, indice.val_secondaire + 'A');
             break;
         case 1:
-            printf("Entre deux %c, il ne peut y avoir qu’un %c.\n", nb_ind, inv);
-            printf("Emplacement : %d%c\n", i_res1 + 1, i_res2 + 'A');
+            printf("Entre deux %c, il ne peut y avoir qu’un %c.\n",
+                   "Emplacement : %d%c\n",
+                   indice.nombre_binaire, inv,
+                   indice.val_principale + 1, indice.val_secondaire + 'A');
+            break;
         case 2:
             printf("Il ne peut pas y avoir deux lignes identiques dans une grille.\n"
-                   "Lignes : %d et %d\n", i_res1 + 1, i_res2 + 1);
+                   "Lignes : %d et %d\n", indice.val_principale + 1, indice.val_secondaire + 1);
+            break;
         case 3:
             printf("Il ne peut pas y avoir deux colonnes identiques dans une grille.\n"
-                   "Colonnes : %c et %c\n", i_res1 + 'A', i_res2 + 'A');
+                   "Colonnes : %c et %c\n", indice.val_principale + 'A', indice.val_secondaire + 'A');
+            break;
         case -1:
-            printf("Pas d'indice obtenable, voici une case choisie au hasard : valeur %c à l'emplacement %d%c\n",
-                   sol[i_res1][i_res2], i_res1 + 1, i_res2 + 'A');
+            printf("Pas d'indice obtenable, voici une case choisie au hasard - valeur : %c, emplacement : %d%c\n",
+                   sol[indice.val_principale][indice.val_secondaire],
+                   indice.val_principale + 1, indice.val_secondaire + 'A');
+            break;
         default:
             printf("Code non pris en charge\n");
+            break;
     }
 }

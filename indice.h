@@ -6,9 +6,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+typedef struct {
+    int code;
+    int val_principale;
+    int val_secondaire;
+    char nombre_binaire;
+} INDICE;
 
 int nombre_manquants(const char *str);
-int donner_indice(char **mat, char **sol, int *i_res1, int *i_res2, char *nb_ind);
-void afficher_indice(char** sol, int code, int i_res1, int i_res2, char nb_ind);
+void donner_indice(INDICE* indice, char **mat);
+void afficher_indice(char** sol, INDICE indice);
 
 #endif //PROJET_TAKUZU_INDICE_H

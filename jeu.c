@@ -9,12 +9,12 @@ bool grille_completee(char** masque) {
 }
 
 void jouer(char** sol, char** masque, int vies) {
+    INDICE indice;
     int taille = size(sol), i_lig, i_col;
     char val_entree, emplacement[2] = "", ** grille_jeu = creer_masque(taille);
-    int _;
 
     printf("Entrer l'emplacement (indices ligne et colonne) et la valeur sous la forme : lignecolonne valeur\n");
-    while (vies > 0 && grille_completee(masque) == false) { // jeu
+    while (vies > 0 && grille_completee_masque(masque) == false) { // jeu
         actualiser_grille_jeu(sol, masque, grille_jeu);
         afficher_grille(grille_jeu);
 
@@ -33,7 +33,8 @@ void jouer(char** sol, char** masque, int vies) {
         } else {
             printf("Coup incorrect... Il vous reste %d vie(s).\n", --vies);
             printf("\n");
-            donner_indice(grille_jeu, sol, &_, &_);
+            donner_indice(&indice, grille_jeu);
+            afficher_indice(sol, indice);
         }
     }
 

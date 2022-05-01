@@ -3,9 +3,10 @@
 
 int menu() {
     int taille, choix = -1;
-    int hint_code, n, m;
-    char** masque = NULL, **sol = NULL, **grille = NULL;
-    while (choix != 0) {
+    INDICE indice;
+
+    char ** masque = NULL, **sol = NULL, **grille = NULL;
+    while (1) {
         printf("Donner la taille des grilles (4 ou 8), ");
         do {
             printf("taille=");
@@ -44,22 +45,22 @@ int menu() {
                 grille = creer_masque(taille);
                 actualiser_grille_jeu(sol, masque, grille);
                 do {
-                    hint_code = donner_indice(grille, sol, &n, &m);
-                    switch (hint_code) {
+                    donner_indice(&indice, grille);
+                    switch (indice.code) {
                         case 1:
-                            grille[n][m] = sol[n][m];
+                            grille[indice.val_principale][indice.val_secondaire] = sol[indice.val_principale][indice.val_secondaire];
                             break;
                         case 2:
-                            strncpy(grille[n], sol[n], taille);
+                            strncpy(grille[indice.val_principale], sol[indice.val_principale], taille);
                             break;
                         case 3:
-                            for (int i = 0; i < taille; ++i) grille[i][n] = sol[i][n];
+                            for (int i = 0; i < taille; ++i) grille[i][indice.val_principale] = sol[i][indice.val_principale];
                             break;
                         default:
                             break;
                     }
                     afficher_grille(grille);
-                } while (hint_code != -1);
+                } while (indice.code != -1);
 
                 break;
             case 2:
