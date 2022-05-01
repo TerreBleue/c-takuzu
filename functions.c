@@ -1,30 +1,30 @@
 
 #include "functions.h"
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <stdbool.h>
 
 void pause() {
-    printf("Appuyez sur Enter pour continuer...");
-    getchar();
+    sleep(5);
+    printf("\n---------------------------------\n");
 }
 
-int size(char** str) {
+char inv_bool(char bin) {
+    return bin == '1' ? '0' : '1';
+}
+
+int size(char **str) {
     return (int) strlen(str[0]);
 }
 
-char** creer_masque(int taille) {
-    char** masque = (char**) calloc(taille, sizeof(char*));
+char **creer_masque(int taille) {
+    char **masque = (char **) calloc(taille, sizeof(char *));
     for (int i = 0; i < taille; i++) {
-        masque[i] = (char*) calloc((taille + 1), sizeof(char));
+        masque[i] = (char *) calloc((taille + 1), sizeof(char));
     }
     return masque;
 }
 
-char** masque_manuel(int taille) {
-    char** masque = creer_masque(taille);
-    char* ligne_masque = (char*) calloc(taille + 1, sizeof(char));
+char **masque_manuel(int taille) {
+    char **masque = creer_masque(taille);
+    char *ligne_masque = (char *) calloc(taille + 1, sizeof(char));
     bool ligne_est_binaire;
     int j;
 
@@ -49,7 +49,7 @@ char** masque_manuel(int taille) {
     return masque;
 }
 
-void afficher_grille_masque(char** solution, char** masque) {
+void afficher_grille_masque(char **solution, char **masque) {
     int taille = size(solution);
 
     // affichage indice des colonnes
@@ -71,7 +71,7 @@ void afficher_grille_masque(char** solution, char** masque) {
     printf("\n");
 }
 
-char** static_to_dynamic(int taille) {
+char **static_to_dynamic(int taille) {
     char m4[4][4] = {
             "0011",
             "0110",
@@ -90,9 +90,9 @@ char** static_to_dynamic(int taille) {
             "11100001"
     };
 
-    char** new_mat = (char**) calloc(taille, sizeof(char*));
+    char **new_mat = (char **) calloc(taille, sizeof(char *));
     for (int i = 0; i < taille; ++i) {
-        new_mat[i] = (char*) calloc(taille, sizeof(char));
+        new_mat[i] = (char *) calloc(taille, sizeof(char));
         switch (taille) {
             case 4:
                 strncpy(new_mat[i], m4[i], taille);
@@ -107,15 +107,15 @@ char** static_to_dynamic(int taille) {
     return new_mat;
 }
 
-void release_mat(char*** mat) {
+void release_mat(char ***mat) {
     int taille = (int) strlen((*mat)[0]);
     for (int i = 0; i < taille; ++i) free((*mat)[i]);
     free(*mat);
     *mat = NULL;
 }
 
-char** masque_aleatoire(int taille) {
-    char** masque = creer_masque(taille);
+char **masque_aleatoire(int taille) {
+    char **masque = creer_masque(taille);
     for (int i = 0; i < taille; ++i) {
         for (int j = 0; j < taille; ++j) {
             masque[i][j] = (char) ('0' + rand() % 2);
@@ -124,7 +124,7 @@ char** masque_aleatoire(int taille) {
     return masque;
 }
 
-void actualiser_grille_jeu(char** sol, char** masque, char** grille_jeu) {
+void actualiser_grille_jeu(char **sol, char **masque, char **grille_jeu) {
     int taille = size(sol);
     for (int i = 0; i < taille; i++) {
         for (int j = 0; j < taille; j++) {
@@ -137,7 +137,7 @@ void actualiser_grille_jeu(char** sol, char** masque, char** grille_jeu) {
     }
 }
 
-void afficher_grille(char** grille) {
+void afficher_grille(char **grille) {
     int taille = size(grille);
 
     // affichage indice des colonnes
@@ -153,7 +153,7 @@ void afficher_grille(char** grille) {
     return (void) printf("\n");
 }
 
-void release_masque(char*** masque) {
+void release_masque(char ***masque) {
     int taille = size(*masque);
     for (int i = 0; i < taille; ++i) free((*masque)[i]);
     free(*masque);

@@ -5,7 +5,7 @@ int menu() {
     int taille, choix = -1;
     INDICE indice;
 
-    char ** masque = NULL, **sol = NULL, **grille = NULL;
+    char **masque = NULL, **sol = NULL, **grille = NULL;
     while (1) {
         printf("Donner la taille des grilles (4 ou 8), ");
         do {
@@ -16,13 +16,14 @@ int menu() {
         printf("0- Quitter le menu\n"
                "1- Saisir manuellement un masque\n"
                "2- Générer automatiquement un masque\n"
-               "3- Jouer\n"
+               "3- Jouer manuellement\n"
+               "4- Jouer automatiquement\n"
                "Choisir l'entier correspondant.\n");
         do {
             printf("choix=");
             scanf("%d", &choix);
         }
-        while (choix < -1 || choix > 4);
+        while (choix < -1 || choix > 5);
 
         if (choix == 0) return 0;
 
@@ -70,7 +71,9 @@ int menu() {
             case 3:
                 masque = masque_aleatoire(taille);
                 jouer(sol, masque, VIES);
-
+            case 4:
+                masque = masque_aleatoire(taille);
+                resoudre_grille(sol, masque, VIES);
             default:
                 return 1;
         }

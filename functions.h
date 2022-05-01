@@ -4,12 +4,14 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
 
 #define VIES 3
 #define INCONNUE '.'
 
 
 void pause();
+char inv_bool(char bin);
 int size(char** str);
 char** static_to_dynamic(int taille);
 char** creer_masque(int taille);

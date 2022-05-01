@@ -68,7 +68,7 @@ void modifier_indice(INDICE *indice, int i, int j, char nb_bin) {
     indice->nombre_binaire = nb_bin;
 }
 
-void donner_indice(INDICE* indice, char **mat) {
+void donner_indice(INDICE *indice, char **mat) {
     int taille = size(mat), i, j, bin;
     char nb_teste;
 
@@ -81,9 +81,11 @@ void donner_indice(INDICE* indice, char **mat) {
 
                     if (si_suite(mat, nb_teste, i, j)) {
                         indice->code = 0;
+                        nb_teste = inv_bool(nb_teste);
                         return modifier_indice(indice, i, j, nb_teste);
                     } else if (si_entoure(mat, nb_teste, i, j)) {
                         indice->code = 1;
+                        nb_teste = inv_bool(nb_teste);
                         return modifier_indice(indice, i, j, nb_teste);
                     }
                 }
@@ -111,18 +113,17 @@ void donner_indice(INDICE* indice, char **mat) {
 }
 
 void afficher_indice(char **sol, INDICE indice) {
-    char inv = indice.nombre_binaire == '1' ? '0' : '1';
     switch (indice.code) {
         case 0:
             printf("Aux bouts d'une suite de deux %c, il ne peut y avoir qu’un %c.\n"
                    "Emplacement : %d%c\n",
-                   indice.nombre_binaire, inv,
+                   inv_bool(indice.nombre_binaire), indice.nombre_binaire,
                    indice.val_principale + 1, indice.val_secondaire + 'A');
             break;
         case 1:
             printf("Entre deux %c, il ne peut y avoir qu’un %c.\n",
                    "Emplacement : %d%c\n",
-                   indice.nombre_binaire, inv,
+                   inv_bool(indice.nombre_binaire), indice.nombre_binaire,
                    indice.val_principale + 1, indice.val_secondaire + 'A');
             break;
         case 2:

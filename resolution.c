@@ -1,21 +1,21 @@
 #include "resolution.h"
 
-char inv_bool(char bin) {
-    return bin == '1' ? '0' : '1';
-}
 
-
-bool valider_coup(char **grille, char **sol, int i, int j, char valeur, int *vies) {
-    int code;
+int valider_coup(char **grille, char **sol, int i, int j, char valeur, int *vies) {
+    int code, resultat;
     INDICE indice;
     code = grille_correcte(grille);
     if (code == 1) {
         if (sol[i][j] == valeur) {
             printf("Coup valide et correct !\n");
             grille[i][j] = sol[i][j];
-        } else { printf("Coup valide mais incorrect.\n"); }
-        return true;
+            resultat = 1;
+        } else {
+            printf("Coup valide mais incorrect.\n");
+            resultat = 0;
+        }
     } else {
+        resultat = -1;
         printf("Coup invalide... Il vous reste %d vie(s).\n", --(*vies));
         if (code == -1) {
             printf("Il doit y avoir autant de 0 que de 1 dans les lignes et les colonnes de la grille.\n");
@@ -25,41 +25,56 @@ bool valider_coup(char **grille, char **sol, int i, int j, char valeur, int *vie
 
         donner_indice(&indice, grille);
         afficher_indice(sol, indice);
-        return false;
     }
+
+    afficher_grille(grille);
+    return resultat;
 }
 
-char inputs_indices_23(char **grille, char **sol, INDICE indice, int *i_lig, int *i_col, int *i_hint, int *vies) {
+void entree_auto_securisee(char **grille, char **sol, int i, int j, char valeur, int *vies) {
+    int res;
+    res = valider_coup(grille, sol, i, j, valeur, vies);
+    pause();
+    if (res == 1) { return; }
+    else if (res == 0) {
+        valeur = inv_bool(valeur);
+        printf("empl et val=%d%c %c\n", i + 1, j + 'A', valeur);
+        valider_coup(grille, sol, i, j, valeur, vies);
+        pause();
+    } else { printf("il y a une erreur !!!"); }
+}
+
+
+void inputs_indices_23(char **grille, char **sol, INDICE indice, int *i_lig, int *i_col, char *val_entree, int *i_hint,
+                       int *vies) {
     int taille = size(grille);
-    char val_entree;
     if (indice.code == 2) {
         *i_lig = indice.val_principale;
 
         while (*i_hint < taille || grille[*i_lig][*i_hint] != INCONNUE) (*i_hint)++;
-        val_entree = inv_bool(grille[indice.val_secondaire][*i_hint]);
+        *val_entree = inv_bool(grille[indice.val_secondaire][*i_hint]);
         printf("%d%c %c\n", i_lig + 1, i_col + 'A', val_entree);
-        valider_coup(grille, sol, *i_lig, *i_hint, grille[indice.val_secondaire][*i_hint], vies);
+        entree_auto_securisee(grille, sol, *i_lig, *i_hint, grille[indice.val_secondaire][*i_hint], vies);
         pause();
 
         printf("empl et val=");
         while (*i_hint < taille || grille[*i_lig][*i_hint] != INCONNUE) (*i_hint)++;
-        val_entree = inv_bool(grille[indice.val_secondaire][*i_hint]);
+        *val_entree = inv_bool(grille[indice.val_secondaire][*i_hint]);
     } else {
         *i_col = indice.val_principale;
 
         while (*i_hint < taille || grille[*i_hint][*i_col] != INCONNUE) (*i_hint)++;
-        val_entree = inv_bool(grille[*i_hint][indice.val_secondaire]);
+        *val_entree = inv_bool(grille[*i_hint][indice.val_secondaire]);
         printf("%d%c %c\n", i_lig + 1, i_col + 'A', val_entree);
-        valider_coup(grille, sol, *i_hint, *i_col, val_entree, vies);
+        entree_auto_securisee(grille, sol, *i_hint, *i_col, *val_entree, vies);
         pause();
 
         printf("empl et val=");
         while (*i_hint < taille || grille[*i_hint][*i_col] != INCONNUE) (*i_hint)++;
-        val_entree = inv_bool(grille[*i_hint][indice.val_secondaire]);
+        *val_entree = inv_bool(grille[*i_hint][indice.val_secondaire]);
     }
-
-    return val_entree;
 }
+
 
 void resoudre_grille(char **sol, char **masque, int vies) {
     INDICE indice;
@@ -72,14 +87,13 @@ void resoudre_grille(char **sol, char **masque, int vies) {
         i_hint = 0;
         afficher_grille(grille);
 
-        printf("empl et val=");
         donner_indice(&indice, grille);
         if (indice.code == 0 || indice.code == 1) {
             i_lig = indice.val_principale;
             i_col = indice.val_secondaire;
             val_entree = indice.nombre_binaire;
         } else if (indice.code == 2 || indice.code == 3) { // lignes ou colonnes similaires
-            val_entree = inputs_indices_23(grille, sol, indice, &i_lig, &i_col, &i_hint, &vies);
+            inputs_indices_23(grille, sol, indice, &i_lig, &i_col, &val_entree, &i_hint, &vies);
         } else { // res -1
             do {
                 i_lig = rand() % taille, i_col = rand() % taille;
@@ -91,11 +105,11 @@ void resoudre_grille(char **sol, char **masque, int vies) {
             else { val_entree = '0'; }
             grille[i_lig][i_col] = INCONNUE;
         }
-        printf("%d%c %c\n", i_lig + 1, i_col + 'A', val_entree);
+
+        printf("empl et val=%d%c %c\n", i_lig + 1, i_col + 'A', val_entree);
         if (indice.code != -1) { afficher_indice(sol, indice); }
-        else { printf("Pas d'indice trouvé, le programme va entrer une valeur valide d'emplacement aléatoire.\n"); }
-        valider_coup(grille, sol, i_lig, i_col, val_entree, &vies);
-        pause();
+        else { printf("Indice introuvable, une valeur valide arbitraire sera choisie.\n"); }
+        entree_auto_securisee(grille, sol, i_lig, i_col, val_entree, &vies);
     }
 
     afficher_grille(grille);
@@ -103,3 +117,5 @@ void resoudre_grille(char **sol, char **masque, int vies) {
         printf("Vous avez perdu ! Il ne vous reste plus de vies.");
     } else { printf("Vous avez gagné !"); }
 }
+
+
