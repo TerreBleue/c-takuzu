@@ -12,19 +12,19 @@ int grille_correcte(char **grille) {
     int taille = size(grille), cpt_lig_0, cpt_col_0, cpt_lig_1, cpt_col_1, cpt_sim, cpt_suite_lig, cpt_suite_col;
     char suite_lig, suite_col;
     for (int i = 0; i < taille; ++i) {
-        cpt_lig_0 = 0, cpt_col_0 = 0, cpt_lig_1 = 0, cpt_col_1 = 0, cpt_sim = 0;
+        cpt_lig_0 = 0, cpt_col_0 = 0, cpt_lig_1 = 0, cpt_col_1 = 0;
+        cpt_sim = 0;
         cpt_suite_lig = 0, cpt_suite_col = 0;
         for (int j = 0; j < taille; ++j) {
+            if (i != j) {
+                for (int k = 0; k < taille; ++k) if (grille[k][i] == grille[k][j]) cpt_sim++;
+                if (strcmp(grille[i], grille[j]) == 0 || cpt_sim == taille) return -3;
+            }
+
             if (grille[i][j] == '0') cpt_lig_0++;
             if (grille[j][i] == '0') cpt_col_0++;
             if (grille[i][j] == '1') cpt_lig_1++;
             if (grille[j][i] == '1') cpt_col_1++;
-
-            if (i != j) {
-                if (strcmp(grille[i], grille[j]) == 0) return -3;
-                for (int k = 0; k < taille; ++k) if (grille[k][i] == grille[k][j]) cpt_sim++;
-                if (cpt_sim == taille) return -3;
-            }
 
             if (j == 0) {
                 suite_lig = grille[i][j];
@@ -42,11 +42,9 @@ int grille_correcte(char **grille) {
                 cpt_suite_col = 1;
             }
 
-            if (suite_lig != INCONNUE && cpt_suite_lig > 2) return -2;
-            if (suite_col != INCONNUE && cpt_suite_col > 2) return -2;
+            if (suite_lig != INCONNUE && cpt_suite_lig > 2 || suite_col != INCONNUE && cpt_suite_col > 2) return -2;
         }
-        if (cpt_lig_0 > taille / 2 || cpt_col_0 > taille / 2
-            || cpt_lig_1 > taille / 2 || cpt_col_1 > taille / 2) {
+        if (cpt_lig_0 > taille / 2 || cpt_col_0 > taille / 2 || cpt_lig_1 > taille / 2 || cpt_col_1 > taille / 2) {
             return -1;
         }
     }
