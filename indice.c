@@ -31,35 +31,33 @@ bool lignes_similaires(char **mat, int i, int j) {
     int taille = size(mat);
     if (nombre_manquants(mat[i]) != 2 || nombre_manquants(mat[j]) != 0) return false;
 
-    int bin = 1, temp = -1;
-    while (++temp < taille) {
-        if (mat[i][temp] != mat[j][temp]) bin--;
-        if (bin < 0) return false;
-    }
+    int nb_diff = 0, i_col = -1;
+    while (++i_col < taille) if (mat[i][i_col] != mat[j][i_col]) nb_diff++;
+
+    if (nb_diff != 2) return false;
     return true;
 }
 
 bool colonnes_similaires(char **mat, int i, int j) {
     bool sont_similaires = true;
-    int temp, taille = size(mat), bin = 1;
-    char *str = (char *) calloc(taille + 1, sizeof(char)),
-            *str2 = (char *) calloc(taille + 1, sizeof(char));
+    int i_lig, taille = size(mat), nb_diff = 0;
+    char *col1 = (char *) calloc(taille + 1, sizeof(char)),
+            *col2 = (char *) calloc(taille + 1, sizeof(char));
 
-    for (temp = 0; temp < taille; ++temp) {
-        str[temp] = mat[temp][i];
-        str2[temp] = mat[temp][j];
+    for (i_lig = 0; i_lig < taille; ++i_lig) {
+        col1[i_lig] = mat[i_lig][i];
+        col2[i_lig] = mat[i_lig][j];
     }
 
-    if (nombre_manquants(str) != 2 || nombre_manquants(str2) != 0) sont_similaires = false;
+    if (nombre_manquants(col1) != 2 || nombre_manquants(col2) != 0) sont_similaires = false;
 
-    temp = -1;
-    while (sont_similaires == true && ++temp < taille) {
-        if (str[temp] != str2[temp]) bin--;
-        if (bin < 0) sont_similaires = false;
-    }
+    i_lig = -1;
+    while (sont_similaires == true && ++i_lig < taille) if (col1[i_lig] != col2[i_lig]) nb_diff++;
 
-    free(str), free(str2);
-    str = NULL, str2 = NULL;
+    if (nb_diff != 2) sont_similaires = false;
+
+    free(col1), free(col2);
+    col1 = NULL, col2 = NULL;
     return sont_similaires;
 }
 
@@ -91,7 +89,6 @@ void donner_indice(INDICE *indice, char **mat) {
                 }
             }
 
-            // TODO fix
             if (lignes_similaires(mat, i, j)) {
                 indice->code = 2;
                 return modifier_indice(indice, i, j, '\0');
