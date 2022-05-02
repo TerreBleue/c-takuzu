@@ -66,9 +66,18 @@ void modifier_indice(INDICE *indice, int i, int j, char nb_bin) {
     indice->nombre_binaire = nb_bin;
 }
 
+/**
+ * Donne un indice selon l'état de la grille. \n
+ * \n
+ * Si indice sur 1 emplacement : val_principale et val_secondaires --> lig et col \n
+ * Sinon tab à modifier // tab similaire rempli\n
+ * nb_teste (si non nul) est la valeur à entrer
+ * @param indice L'indice modifié
+ * @param mat La grille de jeu
+ */
 void donner_indice(INDICE *indice, char **mat) {
     int taille = size(mat), i, j, bin;
-    char nb_teste;
+    char nb_teste, nb_res = '\0';
 
     for (i = 0; i < taille; ++i) {
         for (j = 0; j < taille; ++j) {
@@ -79,24 +88,24 @@ void donner_indice(INDICE *indice, char **mat) {
 
                     if (si_suite(mat, nb_teste, i, j)) {
                         indice->code = 0;
-                        nb_teste = inv_bool(nb_teste);
-                        return modifier_indice(indice, i, j, nb_teste);
+                        nb_res = inv_bool(nb_teste);
+                        return modifier_indice(indice, i, j, nb_res);
                     } else if (si_entoure(mat, nb_teste, i, j)) {
                         indice->code = 1;
-                        nb_teste = inv_bool(nb_teste);
-                        return modifier_indice(indice, i, j, nb_teste);
+                        nb_res = inv_bool(nb_teste);
+                        return modifier_indice(indice, i, j, nb_res);
                     }
                 }
             }
 
             if (lignes_similaires(mat, i, j)) {
                 indice->code = 2;
-                return modifier_indice(indice, i, j, '\0');
+                return modifier_indice(indice, i, j, nb_res);
             }
 
             if (colonnes_similaires(mat, i, j)) {
                 indice->code = 3;
-                return modifier_indice(indice, i, j, '\0');
+                return modifier_indice(indice, i, j, nb_res);
             }
         }
     }
@@ -106,22 +115,21 @@ void donner_indice(INDICE *indice, char **mat) {
         i = rand() % taille, j = rand() % taille;
     } while (mat[i][j] != INCONNUE);
     indice->code = -1;
-    return modifier_indice(indice, i, j, mat[i][j]);
+    nb_res = mat[i][j];
+    return modifier_indice(indice, i, j, nb_res);
 }
 
 void afficher_indice(char **sol, INDICE indice) {
     switch (indice.code) {
         case 0:
-            printf("Aux bouts d'une suite de deux %c, il ne peut y avoir qu’un %c.\n"
-                   "Emplacement : %d%c\n",
-                   inv_bool(indice.nombre_binaire), indice.nombre_binaire,
-                   indice.val_principale + 1, indice.val_secondaire + 'A');
+            printf("Aux bouts d'une suite de deux %c, il ne peut y avoir qu’un %c.\n",
+                   inv_bool(indice.nombre_binaire), indice.nombre_binaire);
+            printf("Emplacement : %d%c\n", indice.val_principale + 1, indice.val_secondaire + 'A');
             break;
         case 1:
             printf("Entre deux %c, il ne peut y avoir qu’un %c.\n",
-                   "Emplacement : %d%c\n",
-                   inv_bool(indice.nombre_binaire), indice.nombre_binaire,
-                   indice.val_principale + 1, indice.val_secondaire + 'A');
+                   inv_bool(indice.nombre_binaire), indice.nombre_binaire);
+            printf("Emplacement : %d%c\n", indice.val_principale + 1, indice.val_secondaire + 'A');
             break;
         case 2:
             printf("Il ne peut pas y avoir deux lignes identiques dans une grille.\n"

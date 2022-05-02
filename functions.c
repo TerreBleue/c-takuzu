@@ -3,7 +3,7 @@
 
 void pause() {
     sleep(5);
-    printf("\n---------------------------------\n");
+    printf("---------------------------------\n");
 }
 
 char inv_bool(char bin) {
@@ -139,6 +139,7 @@ void actualiser_grille_jeu(char **sol, char **masque, char **grille_jeu) {
 
 void afficher_grille(char **grille) {
     int taille = size(grille);
+    printf("\n");
 
     // affichage indice des colonnes
     for (int i = 0; i < taille; ++i) printf("%c ", 'A' + i);
@@ -150,14 +151,6 @@ void afficher_grille(char **grille) {
         for (int j = 0; j < taille; ++j) printf("%c ", grille[i][j]);
         printf("- %d\n", i + 1); // affichage indice lignes
     }
-    return (void) printf("\n");
-}
-
-void release_masque(char ***masque) {
-    int taille = size(*masque);
-    for (int i = 0; i < taille; ++i) free((*masque)[i]);
-    free(*masque);
-    *masque = NULL;
 }
 
 bool grille_completee(char **grille) {
@@ -169,8 +162,8 @@ bool grille_completee(char **grille) {
 }
 
 int grille_correcte(char **grille) {
-    int taille = size(
-            grille), cpt_lig_0, cpt_col_0, cpt_lig_1, cpt_col_1, cpt_sim_lig, cpt_sim_col, cpt_suite_lig, cpt_suite_col;
+    int taille = size(grille);
+    int cpt_lig_0, cpt_col_0, cpt_lig_1, cpt_col_1, cpt_sim_lig, cpt_sim_col, cpt_suite_lig, cpt_suite_col;
     char suite_lig, suite_col;
     for (int i = 0; i < taille; ++i) {
         cpt_lig_0 = 0, cpt_col_0 = 0, cpt_lig_1 = 0, cpt_col_1 = 0;

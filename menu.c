@@ -3,9 +3,8 @@
 
 int menu() {
     int taille, choix = -1;
-    INDICE indice;
 
-    char **masque = NULL, **sol = NULL, **grille = NULL;
+    char **masque = NULL, **sol = NULL;
     while (1) {
         printf("Donner la taille des grilles (4 ou 8), ");
         do {
@@ -34,7 +33,7 @@ int menu() {
                 afficher_grille_masque(sol, masque);
 
                 printf("1- Quitter le menu\n"
-                       "2- Appliquer des indices\n"
+                       "2- Résoudre la grille\n"
                        "Choisir l'entier correspondant.\n");
                 do {
                     printf("choix=");
@@ -42,23 +41,7 @@ int menu() {
                 } while (choix < 1 || choix > 2);
 
                 if (choix == 1) break;
-                grille = creer_masque(taille);
-                actualiser_grille_jeu(sol, masque, grille);
-                do {
-                    donner_indice(&indice, grille);
-                    afficher_indice(sol, indice);
-                    if (indice.code == 0 || indice.code == 1) {
-                        grille[indice.val_principale][indice.val_secondaire] = indice.nombre_binaire;
-                    } else if (indice.code == 2) {
-                        strcpy(grille[indice.val_principale], sol[indice.val_principale]);
-                    } else if (indice.code == 3) {
-                        for (int i = 0; i < taille; ++i) {
-                            grille[i][indice.val_principale] = sol[i][indice.val_principale];
-                        }
-                    }
-                    afficher_grille(grille);
-                } while (indice.code != -1);
-
+                resoudre_grille(sol, masque, VIES);
                 break;
             case 2:
                 masque = masque_aleatoire(taille);
