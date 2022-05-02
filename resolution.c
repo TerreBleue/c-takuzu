@@ -22,9 +22,6 @@ int valider_coup(char **grille, char **sol, int i, int j, char valeur, int *vies
         } else if (code == -2) { printf("Il ne doit pas y avoir plus de 2 chiffres identiques côte à côte.\n"); }
         else { printf("2 lignes ou 2 colonnes ne peuvent être identiques.\n"); } // code -3
         printf("\n");
-
-        donner_indice(&indice, grille);
-        afficher_indice(sol, indice);
     }
 
     afficher_grille(grille);
@@ -99,10 +96,10 @@ void resoudre_grille(char **sol, char **masque, int vies) {
                 i_lig = rand() % taille, i_col = rand() % taille;
             } while (grille[i_lig][i_col] != INCONNUE);
 
-            // on teste la validité du coup de valeur 1
-            grille[i_lig][i_col] = '1';
-            if (grille_correcte(grille)) { val_entree = '1'; }
-            else { val_entree = '0'; }
+            // on teste la validité du coup aléatoire
+            grille[i_lig][i_col] = (char) ('0' + rand() % 2);
+            if (grille_correcte(grille) == 1) { val_entree = grille[i_lig][i_col]; }
+            else { val_entree = inv_bool(grille[i_lig][i_col]); }
             grille[i_lig][i_col] = INCONNUE;
         }
 
@@ -114,8 +111,8 @@ void resoudre_grille(char **sol, char **masque, int vies) {
 
     afficher_grille(grille);
     if (vies == 0) {
-        printf("Vous avez perdu ! Il ne vous reste plus de vies.");
-    } else { printf("Vous avez gagné !"); }
+        printf("Vous avez perdu ! Il ne vous reste plus de vies.\n");
+    } else { printf("Vous avez gagné !\n"); }
 }
 
 

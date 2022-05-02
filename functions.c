@@ -80,14 +80,14 @@ char **static_to_dynamic(int taille) {
     };
 
     char m8[8][8] = {
-            "00001111",
-            "00111100",
-            "01001011",
-            "01111000",
-            "10000111",
             "10110100",
-            "11000011",
-            "11100001"
+            "10101001",
+            "01011010",
+            "01010110",
+            "10100101",
+            "01001011",
+            "00110110",
+            "11001001"
     };
 
     char **new_mat = (char **) calloc(taille, sizeof(char *));
@@ -158,4 +158,63 @@ void release_masque(char ***masque) {
     for (int i = 0; i < taille; ++i) free((*masque)[i]);
     free(*masque);
     *masque = NULL;
+}
+
+bool grille_completee(char **grille) {
+    int taille = size(grille);
+    for (int i = 0; i < taille; ++i) {
+        for (int j = 0; j < taille; j++) if (grille[i][j] == INCONNUE) return false;
+    }
+    return true;
+}
+
+int grille_correcte(char **grille) {
+    int taille = size(
+            grille), cpt_lig_0, cpt_col_0, cpt_lig_1, cpt_col_1, cpt_sim_lig, cpt_sim_col, cpt_suite_lig, cpt_suite_col;
+    char suite_lig, suite_col;
+    for (int i = 0; i < taille; ++i) {
+        cpt_lig_0 = 0, cpt_col_0 = 0, cpt_lig_1 = 0, cpt_col_1 = 0;
+        cpt_suite_lig = 0, cpt_suite_col = 0;
+        for (int j = 0; j < taille; ++j) {
+            if (i != j) {
+                cpt_sim_lig = 0, cpt_sim_col = 0;
+                for (int k = 0; k < taille; ++k) {
+                    if (grille[i][k] != INCONNUE && grille[i][k] == grille[j][k]) cpt_sim_lig++;
+                    if (grille[k][i] != INCONNUE && grille[k][i] == grille[k][j]) cpt_sim_col++;
+                }
+                if (cpt_sim_lig == taille || cpt_sim_col == taille) {
+                    printf("lig %d col %d", cpt_sim_lig, cpt_sim_col);
+                    return -3;
+                }
+            }
+
+            if (grille[i][j] == '0') cpt_lig_0++;
+            if (grille[j][i] == '0') cpt_col_0++;
+            if (grille[i][j] == '1') cpt_lig_1++;
+            if (grille[j][i] == '1') cpt_col_1++;
+
+            if (j == 0) {
+                suite_lig = grille[i][j];
+                suite_col = grille[j][i];
+            }
+            if (suite_lig == grille[i][j]) { cpt_suite_lig++; }
+            else {
+                suite_lig = grille[i][j];
+                cpt_suite_lig = 1;
+            }
+
+            if (suite_col == grille[j][i]) { cpt_suite_col++; }
+            else {
+                suite_col = grille[j][i];
+                cpt_suite_col = 1;
+            }
+
+            if (cpt_lig_0 > taille / 2 || cpt_col_0 > taille / 2 || cpt_lig_1 > taille / 2 || cpt_col_1 > taille / 2) {
+                return -1;
+            }
+            if (suite_lig != INCONNUE && cpt_suite_lig > 2 || suite_col != INCONNUE && cpt_suite_col > 2) return -2;
+        }
+    }
+
+    return 1;
 }

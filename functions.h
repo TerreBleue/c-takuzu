@@ -21,5 +21,7 @@ char** masque_manuel(int taille);
 char** masque_aleatoire(int taille);
 void afficher_grille_masque(char** solution, char** masque);
 void release_mat(char*** mat);
+bool grille_completee(char** grille);
+int grille_correcte(char **grille);
 
 #endif //PROJET_TAKUZU_FUNCTIONS_H

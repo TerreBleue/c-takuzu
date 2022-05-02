@@ -22,8 +22,7 @@ int menu() {
         do {
             printf("choix=");
             scanf("%d", &choix);
-        }
-        while (choix < -1 || choix > 5);
+        } while (choix < -1 || choix > 5);
 
         if (choix == 0) return 0;
 
@@ -47,18 +46,15 @@ int menu() {
                 actualiser_grille_jeu(sol, masque, grille);
                 do {
                     donner_indice(&indice, grille);
-                    switch (indice.code) {
-                        case 1:
-                            grille[indice.val_principale][indice.val_secondaire] = sol[indice.val_principale][indice.val_secondaire];
-                            break;
-                        case 2:
-                            strncpy(grille[indice.val_principale], sol[indice.val_principale], taille);
-                            break;
-                        case 3:
-                            for (int i = 0; i < taille; ++i) grille[i][indice.val_principale] = sol[i][indice.val_principale];
-                            break;
-                        default:
-                            break;
+                    afficher_indice(sol, indice);
+                    if (indice.code == 0 || indice.code == 1) {
+                        grille[indice.val_principale][indice.val_secondaire] = indice.nombre_binaire;
+                    } else if (indice.code == 2) {
+                        strcpy(grille[indice.val_principale], sol[indice.val_principale]);
+                    } else if (indice.code == 3) {
+                        for (int i = 0; i < taille; ++i) {
+                            grille[i][indice.val_principale] = sol[i][indice.val_principale];
+                        }
                     }
                     afficher_grille(grille);
                 } while (indice.code != -1);
@@ -74,6 +70,7 @@ int menu() {
             case 4:
                 masque = masque_aleatoire(taille);
                 resoudre_grille(sol, masque, VIES);
+                break;
             default:
                 return 1;
         }
@@ -81,4 +78,5 @@ int menu() {
         release_mat(&masque);
         release_mat(&sol);
     }
+
 }
