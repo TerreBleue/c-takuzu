@@ -2,6 +2,7 @@
 #define PROJET_TAKUZU_JEU_H
 #include "functions.h"
 #include "indice.h"
+#include "masque.h"
 
 #include <stdbool.h>
 #include <string.h>
