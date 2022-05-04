@@ -39,50 +39,22 @@ bool comparer_lig_prec(int i, char **grille) {
 
 char **generer_grille(int taille) {
     int *tab_code = (int *) calloc(taille, sizeof(int));
-    int code_lig, code_prec;
-    char** grille = creer_masque(taille);
-
-    /*for (int i = 0; i < taille; ++i) {
-        code_prec = 0;
-        for (int j = 0; j < i; ++j) {
-            code_prec += (int) ((grille[i][j] - '0') * pow(2, j));
-        }
-        do {
-            code_lig = rand() % ((int) (pow(2, taille) - 1) - code_prec) + code_prec;
-            for (int j = 0; j < taille; ++j) {
-                tab_code[j] = code_lig % 2;
-                code_lig /= 2;
-            }
-        } while (verif_code(code_lig, tab_code,i+1) == false);
-        for (int j = i; j < taille; ++j) grille[i][j] = (char) (tab_code[j] + '0');
-
-        code_prec = 0;
-        for (int j = 0; j < i; ++j) {
-            code_prec += (int) ((grille[j][i] - '0') * pow(2, j));
-        }
-        do {
-            code_col = rand() % ((int) (pow(2, taille) - 1) - code_prec) + code_prec;
-            for (int j = 0; j < taille; ++j) {
-                tab_code[j] = code_col % 2;
-                code_col /= 2;
-            }
-        } while (verif_code(code_col, tab_code,i+1) == false);
-        for (int j = i; j < taille; ++j) grille[j][i] = (char) (tab_code[j] + '0');
-    }*/
+    int code_lig;
+    char **grille = creer_masque(taille);
 
     do {
         for (int i = 0; i < taille; ++i) { // génération lignes
             do {
-                code_lig = rand() % (int) (pow(2, taille) - 1);
+                code_lig = rand() % (int) pow(2, taille);
                 for (int j = 0; j < taille; ++j) {
                     tab_code[j] = code_lig % 2;
                     code_lig /= 2;
                 }
-                code_prec = 0;
-                for (int j = 0; j < i; ++j) {
-                    code_prec += (int) ((grille[i][j] - '0') * pow(2, j));
-                }
-            } while (verif_code(code_lig, tab_code, i + 1) == false || comparer_lig_prec(code_lig, i, grille) == false);
+            } while (verif_code(code_lig, tab_code, i + 1) == false || comparer_lig_prec(i, grille) == false);
         }
     } while (grille_correcte(grille) < 0);
+
+    free(tab_code);
+    tab_code = NULL;
+    return grille;
 }
