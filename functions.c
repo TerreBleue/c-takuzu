@@ -6,6 +6,12 @@ void pause() {
     printf("---------------------------------\n");
 }
 
+void clear() {
+    for (int i = 0; i < 100; ++i) {
+        printf("\n");
+    }
+}
+
 char inv_bool(char bin) {
     return bin == '1' ? '0' : '1';
 }
@@ -130,10 +136,8 @@ int grille_correcte(char **grille) {
                     if (grille[i][k] != INCONNUE && grille[i][k] == grille[j][k]) cpt_sim_lig++;
                     if (grille[k][i] != INCONNUE && grille[k][i] == grille[k][j]) cpt_sim_col++;
                 }
-                if (cpt_sim_lig == taille || cpt_sim_col == taille) {
-                    printf("lig %d col %d", cpt_sim_lig, cpt_sim_col);
-                    return -3;
-                }
+                if (cpt_sim_lig == taille || cpt_sim_col == taille) return -3;
+
             }
 
             if (grille[i][j] == '0') cpt_lig_0++;

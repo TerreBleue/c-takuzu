@@ -11,6 +11,7 @@
 
 
 void pause();
+void clear();
 char inv_bool(char bin);
 int size(char** str);
 char** static_to_dynamic(int taille);

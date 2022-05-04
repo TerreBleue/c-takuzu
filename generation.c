@@ -28,25 +28,19 @@ bool verif_code(int code, const int *tab_code, int taille) {
     return code_correct;
 }
 
-bool comparer_lig_prec(int code, int i, char **grille) {
+bool comparer_lig_prec(int i, char **grille) {
     if (i == 0) return true;
-    int taille = size(grille);
-    int code_prec;
 
     for (int j = 0; j < i; ++j) { // parcourt les lignes avant grille[i]
-        code_prec = 0;
-        for (int k = 0; k < taille; ++k) {
-            code_prec += (int) ((grille[j][k] - '0') * pow(2, k));
-        }
-        if (code_prec == code) return false;
+        if (strcmp(grille[j], grille[i]) == 0) return false;
     }
     return true;
 }
 
-void generer_grille(char **grille, int taille) {
+char **generer_grille(int taille) {
     int *tab_code = (int *) calloc(taille, sizeof(int));
     int code_lig, code_prec;
-    grille = creer_masque(taille);
+    char** grille = creer_masque(taille);
 
     /*for (int i = 0; i < taille; ++i) {
         code_prec = 0;

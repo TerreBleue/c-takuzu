@@ -5,7 +5,7 @@
 void jouer(char **sol, char **masque, int vies) {
     INDICE indice;
     int taille = size(sol), i_lig, i_col, code;
-    char val_entree, emplacement[2] = "", **grille_jeu = creer_masque(taille);
+    char val_entree, emplacement[2] = "", **grille_jeu = creer_masque(taille); // modifier forme emplacement
     actualiser_grille_jeu(sol, masque, grille_jeu);
 
     printf("Entrer l'emplacement (indices ligne et colonne) et la valeur sous la forme : lignecolonne valeur\n");

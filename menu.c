@@ -6,11 +6,11 @@ int menu() {
 
     char **masque = NULL, **sol = NULL;
     while (1) {
-        printf("Donner la taille des grilles, ");
+        printf("Donner la taille (paire, > 2) des grilles, ");
         do {
             printf("taille=");
             scanf("%d", &taille);
-        } while (taille > 2 && taille % 2 == 0);
+        } while (taille <= 2 || taille % 2 != 0 || taille > 26);
 
         printf("0- Quitter le menu\n"
                "1- Saisir manuellement un masque\n"
@@ -27,7 +27,7 @@ int menu() {
         if (choix == 0) return 0;
 
         // sol = static_to_dynamic(taille);
-        generer_grille(sol, taille);
+        sol = generer_grille(taille);
         switch (choix) {
             case 1:
                 afficher_grille(sol);
@@ -64,15 +64,13 @@ int menu() {
                     printf("choix=");
                     scanf("%d", &choix);
                 } while (choix < 1 || choix > 2);
-                if (choix == 1) break;
-                for (int i = 0; i < taille; ++i) printf("grille[%d]=%s", i, sol[i]);
+                if (choix == 2) afficher_grille(sol);
                 break;
-
             default:
                 return 1;
         }
 
-        release_mat(&masque);
+        if (masque != NULL) release_mat(&masque);
         release_mat(&sol);
     }
 
