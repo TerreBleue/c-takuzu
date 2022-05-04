@@ -3,6 +3,7 @@
 #include "functions.h"
 #include "resolution.h"
 #include "jeu.h"
+#include "generation.h"
 
 #include <stdio.h>
 
