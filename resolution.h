@@ -4,6 +4,12 @@
 #include "masque.h"
 #include "indice.h"
 
+/**
+ * Résout une grille automatiquement.
+ * @param sol Solution
+ * @param masque Masque
+ * @param vies Nombre de vies
+ */
 void resoudre_grille(char **sol, char **masque, int vies);
 
 #endif //PROJET_TAKUZU_RESOLUTION_H

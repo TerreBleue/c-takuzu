@@ -7,6 +7,11 @@
 
 #include <stdio.h>
 
+
+/**
+ * Le menu du jeu.
+ * @return Le code de sortie du menu, à l'instar du code de sortie du main.
+ */
 int menu();
 
 #endif //PROJET_TAKUZU_MENU_H
