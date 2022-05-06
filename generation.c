@@ -49,9 +49,11 @@ char **generer_grille(int taille) {
                 for (int j = 0; j < taille; ++j) {
                     tab_code[j] = code_lig % 2;
                     code_lig /= 2;
+                    grille[i][j] = (char) (tab_code[j] + '0');
                 }
-            } while (verif_code(code_lig, tab_code, i + 1) == false || comparer_lig_prec(i, grille) == false);
+            } while (verif_code(code_lig, tab_code, taille) == false || comparer_lig_prec(i, grille) == false);
         }
+
     } while (grille_correcte(grille) < 0);
 
     free(tab_code);
