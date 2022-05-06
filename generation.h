@@ -3,6 +3,8 @@
 
 #include "functions.h"
 #include "masque.h"
+#include "indice.h"
+#include "time.h"
 #include <math.h>
 
 char** generer_grille(int taille);
