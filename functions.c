@@ -136,7 +136,7 @@ int grille_correcte(char **grille) {
                     if (grille[i][k] != INCONNUE && grille[i][k] == grille[j][k]) cpt_sim_lig++;
                     if (grille[k][i] != INCONNUE && grille[k][i] == grille[k][j]) cpt_sim_col++;
                 }
-                if (cpt_sim_lig == taille || cpt_sim_col == taille) return -3;
+                if (cpt_sim_lig >= taille - 1 || cpt_sim_col >= taille - 1) return -3;
 
             }
 

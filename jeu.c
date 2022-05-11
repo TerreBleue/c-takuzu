@@ -41,7 +41,7 @@ void jouer(char **sol, char **masque, int vies) {
     }
 
     afficher_grille(grille_jeu);
-    if (vies == 0) {
-        printf("Vous avez perdu ! Il ne vous reste plus de vies.\n");
-    } else { printf("Vous avez gagné !\n"); }
+    if (vies == 0) { printf("Vous avez perdu... Il ne vous reste plus de vies.\n"); }
+    else { printf("Vous avez gagné !\n"); }
+    printf("\n");
 }

@@ -38,6 +38,7 @@ bool comparer_lig_prec(int i, char **grille) {
 }
 
 char **generer_grille(int taille) {
+    clock_t tic = clock();
     int *tab_code = (int *) calloc(taille, sizeof(int));
     int code_lig;
     char **grille = creer_masque(taille);
@@ -58,5 +59,7 @@ char **generer_grille(int taille) {
 
     free(tab_code);
     tab_code = NULL;
+    clock_t toc = clock();
+    printf("Temps de génération de la grille en secondes : %f\n", (toc - tic) / CLOCKS_PER_SEC);
     return grille;
 }

@@ -4,6 +4,7 @@
 #include "functions.h"
 #include "masque.h"
 #include <math.h>
+#include <time.h>
 
 /**
  * Génère automatiquement une grille solution de taille donnée.
