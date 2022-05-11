@@ -36,6 +36,7 @@ int menu() {
             case 1:
                 afficher_grille(sol);
                 masque = masque_manuel(taille);
+                printf("\n");
                 afficher_grille_masque(sol, masque);
 
                 printf("1- Quitter le menu\n"
@@ -46,7 +47,7 @@ int menu() {
                     printf("choix=");
                     scanf("%d", &choix);
                 } while (choix < 1 || choix > 3);
-
+                printf("\n");
                 if (choix == 1) break;
                 else if (choix == 2) jouer(sol, masque, VIES);
                 else resoudre_grille(sol, masque, VIES);
@@ -66,16 +67,19 @@ int menu() {
             case 5:
                 printf("1- Quitter le menu\n"
                        "2- Afficher l'ensemble des lignes valides\n"
+                       "3- Générer une grille de Takuzu avec étapes\n"
                        "Choisir l'entier correspondant.\n");
                 do {
                     printf("choix=");
                     scanf("%d", &choix);
-                } while (choix < 1 || choix > 2);
+                } while (choix < 1 || choix > 3);
                 if (choix == 2) afficher_grille(sol);
+                if (choix == 3) afficher_generation(taille);
                 break;
             default:
                 return 1;
         }
+        printf("\n");
 
         if (masque != NULL) release_mat(&masque);
         release_mat(&sol);
