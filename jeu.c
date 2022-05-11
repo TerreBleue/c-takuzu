@@ -3,7 +3,7 @@
 
 void jouer(char **sol, char **masque, int vies) {
     INDICE indice;
-    int taille = size(sol);
+    int taille = size(sol), scanf_res;
     char **grille_jeu = creer_masque(taille);
     int entree_lig, i_lig, i_col, code;
     char val_entree, entree_col;
@@ -15,7 +15,8 @@ void jouer(char **sol, char **masque, int vies) {
 
         do {
             printf("empl et val=");
-            scanf("%2d%c %c", &entree_lig, &entree_col, &val_entree);
+            scanf_res = scanf("%2d%c %c", &entree_lig, &entree_col, &val_entree);
+            if (scanf_res == 0) scanf("%*s");
             i_lig = entree_lig - 1, i_col = (int) (entree_col - 'A');
         } while (i_lig < 0 || i_lig >= taille
                  || i_col < 0 || i_col >= taille

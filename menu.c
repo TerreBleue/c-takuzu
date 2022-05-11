@@ -2,7 +2,7 @@
 
 
 int menu() {
-    int taille, choix = -1;
+    int taille, choix = -1, scanf_res;
 
     char **masque = NULL, **sol = NULL;
     while (1) {
@@ -11,7 +11,8 @@ int menu() {
                "Donner la taille (paire, > 2) des grilles, ");
         do {
             printf("taille=");
-            scanf("%d", &taille);
+            scanf_res = scanf("%d", &taille);
+            if (scanf_res == 0) scanf("%*s");
         } while (taille <= 2 || taille % 2 != 0 || taille > 26);
 
         printf("0- Quitter le menu\n"
@@ -23,7 +24,8 @@ int menu() {
                "Choisir l'entier correspondant.\n");
         do {
             printf("choix=");
-            scanf("%d", &choix);
+            scanf_res = scanf("%d", &choix);
+            if (scanf_res == 0) scanf("%*s");
         } while (choix < -1 || choix > 6);
 
         if (choix == 0) return 0;
@@ -45,12 +47,13 @@ int menu() {
                        "Choisir l'entier correspondant.\n");
                 do {
                     printf("choix=");
-                    scanf("%d", &choix);
+                    scanf_res = scanf("%d", &choix);
+                    if (scanf_res == 0) scanf("%*s");
                 } while (choix < 1 || choix > 3);
                 printf("\n");
-                if (choix == 1) break;
-                else if (choix == 2) jouer(sol, masque, VIES);
-                else resoudre_grille(sol, masque, VIES);
+                if (choix == 1) { break; }
+                else if (choix == 2) { jouer(sol, masque, VIES); }
+                else { resoudre_grille(sol, masque, VIES); }
                 break;
             case 2:
                 masque = masque_aleatoire(taille);
@@ -71,10 +74,11 @@ int menu() {
                        "Choisir l'entier correspondant.\n");
                 do {
                     printf("choix=");
-                    scanf("%d", &choix);
+                    scanf_res = scanf("%d", &choix);
+                    if (scanf_res == 0) scanf("%*s");
                 } while (choix < 1 || choix > 3);
-                if (choix == 2) afficher_grille(sol);
-                if (choix == 3) afficher_generation(taille);
+                if (choix == 2) { afficher_grille(sol); }
+                else if (choix == 3) afficher_generation(taille);
                 break;
             default:
                 return 1;
