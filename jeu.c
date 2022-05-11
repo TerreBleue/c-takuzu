@@ -1,11 +1,12 @@
 #include "jeu.h"
 
 
-
 void jouer(char **sol, char **masque, int vies) {
     INDICE indice;
-    int taille = size(sol), i_lig, i_col, code;
-    char val_entree, emplacement[2] = "", **grille_jeu = creer_masque(taille); // modifier forme emplacement
+    int taille = size(sol);
+    char **grille_jeu = creer_masque(taille);
+    int entree_lig, i_lig, i_col, code;
+    char val_entree, entree_col;
     actualiser_grille_jeu(sol, masque, grille_jeu);
 
     printf("Entrer l'emplacement (indices ligne et colonne) et la valeur sous la forme : lignecolonne valeur\n");
@@ -14,14 +15,16 @@ void jouer(char **sol, char **masque, int vies) {
 
         do {
             printf("empl et val=");
-            scanf("%2s %c", emplacement, &val_entree);
-            i_lig = (int) (emplacement[0] - '1'), i_col = (int) (emplacement[1] - 'A');
-        } while ('1' + taille - 1 < emplacement[0] || emplacement[0] < '1' // ligne
-                 || 'A' + taille - 1 < emplacement[1] || emplacement[1] < 'A' // colonne
+            scanf("%2d%c %c", &entree_lig, &entree_col, &val_entree);
+            i_lig = entree_lig - 1, i_col = (int) (entree_col - 'A');
+        } while (i_lig < 0 || i_lig >= taille
+                 || i_col < 0 || i_col >= taille
                  || val_entree != '0' && val_entree != '1'
-                 || masque[i_lig][i_col] == '1'); // valeur déjà affichée
+                 || grille_jeu[i_lig][i_col] != INCONNUE); // valeur déjà affichée
 
+        grille_jeu[i_lig][i_col] = val_entree; // test de la validité du coup : on met temp la grille à la valeur entrée
         code = grille_correcte(grille_jeu);
+        grille_jeu[i_lig][i_col] = INCONNUE;
         if (code == 1) {
             if (sol[i_lig][i_col] == val_entree) {
                 printf("Coup valide et correct !\n");

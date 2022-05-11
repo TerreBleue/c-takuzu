@@ -24,6 +24,7 @@ Comment utiliser le projet ?
 
 - Si vous jouez au jeu, pour entrer une action : entrez l'emplacement (le numéro de ligne et la lettre majuscule de la colonne) de la case sans espace entre les caractères, puis le nombre binaire.
     - Exemple : pour entrer un '0' à la ligne 2 et à la colonne C, entrez "2C 0".
+    - Astuce : si vous êtes bloqué, n'hésitez pas à entrer une valeur correcte mais peut-être invalide, vous ne serez pas pénalisé.
 
 - Si vous faites résoudre une grille automatiquement, vous n'avez plus rien à faire jusqu'à la fin de la résolution.
     - Le programme s'interrompt systématiquement à chaque action ; cela est normal, c'est pour vous permettre de tout lire progressivement.
