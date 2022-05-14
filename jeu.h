@@ -1,6 +1,6 @@
 #ifndef PROJET_TAKUZU_JEU_H
 #define PROJET_TAKUZU_JEU_H
-#include "functions.h"
+#include "fonctions.h"
 #include "indice.h"
 #include "masque.h"
 

@@ -6,4 +6,4 @@ set(CMAKE_C_STANDARD 11)
 include_directories(.)
 
 add_executable(Projet_Takuzu
-        main.c functions.c functions.h menu.c menu.h jeu.c jeu.h resolution.c resolution.h indice.c indice.h masque.c masque.h generation.c generation.h)
+        main.c fonctions.c fonctions.h menu.c menu.h jeu.c jeu.h resolution.c resolution.h indice.c indice.h masque.c masque.h generation.c generation.h)

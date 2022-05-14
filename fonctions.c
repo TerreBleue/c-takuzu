@@ -1,5 +1,5 @@
 
-#include "functions.h"
+#include "fonctions.h"
 
 void pause() {
     sleep(5);

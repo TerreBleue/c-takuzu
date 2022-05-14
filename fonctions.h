@@ -1,5 +1,5 @@
-#ifndef PROJET_TAKUZU_FUNCTIONS_H
-#define PROJET_TAKUZU_FUNCTIONS_H
+#ifndef PROJET_TAKUZU_FONCTIONS_H
+#define PROJET_TAKUZU_FONCTIONS_H
 #include <stdbool.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -88,4 +88,4 @@ bool grille_completee(char **grille);
  */
 int grille_correcte(char **grille);
 
-#endif //PROJET_TAKUZU_FUNCTIONS_H
+#endif //PROJET_TAKUZU_FONCTIONS_H

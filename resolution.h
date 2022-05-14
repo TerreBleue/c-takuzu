@@ -1,6 +1,6 @@
 #ifndef PROJET_TAKUZU_RESOLUTION_H
 #define PROJET_TAKUZU_RESOLUTION_H
-#include "functions.h"
+#include "fonctions.h"
 #include "masque.h"
 #include "indice.h"
 

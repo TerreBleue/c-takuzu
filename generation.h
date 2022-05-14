@@ -1,7 +1,7 @@
 #ifndef PROJET_TAKUZU_GENERATION_H
 #define PROJET_TAKUZU_GENERATION_H
 
-#include "functions.h"
+#include "fonctions.h"
 #include "masque.h"
 #include <math.h>
 #include <time.h>

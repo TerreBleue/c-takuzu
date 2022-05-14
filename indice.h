@@ -1,6 +1,6 @@
 #ifndef PROJET_TAKUZU_INDICE_H
 #define PROJET_TAKUZU_INDICE_H
-#include "functions.h"
+#include "fonctions.h"
 #include <string.h>
 #include <stdbool.h>
 #include <stdio.h>
