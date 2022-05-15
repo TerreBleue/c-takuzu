@@ -93,7 +93,7 @@ void inputs_indices_23(char **grille, char **sol, INDICE indice, int *i_lig, int
 void resoudre_grille(char **sol, char **masque, int vies) {
     INDICE indice;
     int taille = size(sol), i_lig, i_col, i_hint;
-    char val_entree, **grille = creer_masque(taille);
+    char val_entree, **grille = creer_mat(taille);
     actualiser_grille_jeu(sol, masque, grille);
 
     printf("Entrer l'emplacement (indices ligne et colonne) et la valeur sous la forme : lignecolonne valeur\n");

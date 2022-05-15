@@ -7,11 +7,11 @@
 #include <string.h>
 
 /**
- * Alloue un masque de taille donnée.
+ * Alloue une matrice de taille donnée.
  * @param taille La taille
- * @return Un pointeur vers ce masque
+ * @return Un pointeur vers cette matrice
  */
-char** creer_masque(int taille);
+char** creer_mat(int taille);
 
 /**
  * Crée un masque de taille donnée selon les entrées du joueur

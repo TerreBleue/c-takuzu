@@ -67,7 +67,7 @@ void generation_lignes_correctes(int taille, char **grille, int *tab_code) {
 
 char **generer_grille(int taille) {
     int *tab_code = (int *) calloc(taille, sizeof(int));
-    char **grille = creer_masque(taille);
+    char **grille = creer_mat(taille);
     int cpt = 0;
     do {
         cpt++, reinit_grille(grille, taille);
@@ -82,7 +82,7 @@ char **generer_grille(int taille) {
 
 void afficher_generation(int taille) {
     int *tab_code = (int *) calloc(taille, sizeof(int));
-    char **grille = creer_masque(taille);
+    char **grille = creer_mat(taille);
     int code_lig;
 
     printf("L'objectif est de créer une grille correcte de taille %d.\n", taille);

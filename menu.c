@@ -19,8 +19,8 @@ int menu() {
                "1- Saisir manuellement un masque\n"
                "2- Générer automatiquement un masque\n"
                "3- Jouer manuellement\n"
-               "4- Jouer automatiquement\n"
-               "5- Générer une grille de Takuzu\n"
+               "4- Résoudre automatiquement\n"
+               "5- Détails de la génération d'une grille solution\n"
                "Choisir l'entier correspondant.\n");
         do {
             printf("choix=");
@@ -70,7 +70,7 @@ int menu() {
             case 5:
                 printf("1- Quitter le menu\n"
                        "2- Afficher l'ensemble des lignes valides\n"
-                       "3- Générer une grille de Takuzu avec étapes\n"
+                       "3- Détailler la génération d'une grille de Takuzu\n"
                        "Choisir l'entier correspondant.\n");
                 do {
                     printf("choix=");
