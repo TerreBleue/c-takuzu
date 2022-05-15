@@ -29,7 +29,7 @@ bool verif_code(int code, const int *tab_code, int taille) {
 
     if (taille % 2 == 0) {
         for (int i = 0; i < taille; ++i) somme += tab_code[i];
-        if (somme != taille / 2) return false;
+        if (somme != taille / 2) return false; // mauvais nombre de 0 et de 1
     }
 
     for (int i = 0; i < taille; ++i) {
@@ -38,7 +38,7 @@ bool verif_code(int code, const int *tab_code, int taille) {
             val_suite = tab_code[i];
         } else { suite++; }
 
-        if (suite > 2) return false;
+        if (suite > 2) return false; // suite de trois 0 ou 1
     }
 
     return true;
@@ -73,7 +73,7 @@ void generation_ligne(int taille, char **grille, int i, int *tab_code, int *code
     *code_lig = rand() % (int) pow(2, taille);
     int temp = *code_lig;
     for (int j = 0; j < taille; ++j) {
-        tab_code[j] = temp % 2;
+        tab_code[j] = temp % 2; // division successives
         temp /= 2;
         grille[i][j] = (char) (tab_code[j] + '0');
     }

@@ -31,7 +31,7 @@ int menu() {
         if (choix == 0) return 0;
 
         printf("Génération de la grille solution...\n");
-        // sol = static_to_dynamic(taille);
+        // sol = statique_vers_dynamique(taille);
         sol = generer_grille(taille);
         printf("\n");
         switch (choix) {

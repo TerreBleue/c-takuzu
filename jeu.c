@@ -46,14 +46,14 @@ void jouer(char **sol, char **masque, int vies) {
         do {
             printf("ligcol et val=");
             scanf("%3s %c", entree_empl, &val_entree);
-            entree_lig = strtol(entree_empl, &entree_col, 10); // début du str converti en int
+            entree_lig = strtol(entree_empl, &entree_col, 10); // début du str converti en int, reste pointé
             i_lig = entree_lig - 1, i_col = (int) (entree_col[0] - 'A');
         } while (i_lig < 0 || i_lig >= taille
                  || i_col < 0 || i_col >= taille
                  || val_entree != '0' && val_entree != '1'
-                 || grille_jeu[i_lig][i_col] != INCONNUE); // valeur déjà affichée
+                 || grille_jeu[i_lig][i_col] != INCONNUE);
 
-        if (valider_coup(grille_jeu, sol, i_lig, i_col, val_entree, &vies) == -1) {
+        if (valider_coup(grille_jeu, sol, i_lig, i_col, val_entree, &vies) == -1) { // invalide
             donner_indice(&indice, grille_jeu);
             afficher_indice(sol, indice);
         }

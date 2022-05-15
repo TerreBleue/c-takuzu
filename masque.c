@@ -4,7 +4,7 @@
 char **creer_mat(int taille) {
     char **masque = (char **) calloc(taille, sizeof(char *));
     for (int i = 0; i < taille; i++) {
-        masque[i] = (char *) calloc((taille + 1), sizeof(char));
+        masque[i] = (char *) calloc((taille + 1), sizeof(char)); // caractère nul
     }
     return masque;
 }
@@ -23,7 +23,7 @@ char **masque_manuel(int taille) {
             ligne_est_binaire = true;
             j = -1;
 
-            while (ligne_est_binaire == true && ++j < strlen(ligne_masque)) {
+            while (ligne_est_binaire == true && ++j < strlen(ligne_masque)) { // binaire et de bonne taille
                 if (ligne_masque[j] != '1' && ligne_masque[j] != '0') ligne_est_binaire = false;
             }
 

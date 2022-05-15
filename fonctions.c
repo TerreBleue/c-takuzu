@@ -42,7 +42,7 @@ void afficher_grille_masque(char **solution, char **masque) {
     printf("\n");
 }
 
-char **static_to_dynamic(int taille) {
+char **statique_vers_dynamique(int taille) {
     char m4[4][4] = {
             "0011",
             "0110",

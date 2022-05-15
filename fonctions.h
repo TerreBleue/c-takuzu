@@ -40,7 +40,7 @@ int size(char **str);
  * @param taille La taille de la matrice
  * @return Un pointeur vers la matrice pré-générée
  */
-char **static_to_dynamic(int taille);
+char **statique_vers_dynamique(int taille);
 
 /**
  * La solution et le masque sont donnés. Actualise la grille jeu selon les ajouts de 1 du masque.
