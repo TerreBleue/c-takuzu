@@ -83,15 +83,39 @@ char **generer_grille(int taille) {
 void afficher_generation(int taille) {
     int *tab_code = (int *) calloc(taille, sizeof(int));
     char **grille = creer_masque(taille);
+    int code_lig;
 
-    printf("On génère une nouvelle grille en détaillant chaque création de grille temporaire.\n");
+    printf("L'objectif est de créer une grille correcte de taille %d.\n", taille);
+    pause();
+
     do {
-        generation_lignes_correctes(taille, grille, tab_code);
-        afficher_grille(grille);
-        pause();
-    } while (grille_correcte(grille) < 0);
-    printf("Cette grille est correcte, alors on s'arrête là.\n");
+        generation_ligne(taille, grille, 0, tab_code, &code_lig);
+    } while (ligne_correcte(taille, grille, 0, tab_code, code_lig) == false);
+    printf("Voici la première ligne obtenue: %s\n"
+           "On l'a générée grâce à un code aléatoire, puis on a vérifié qu'il permettrait une ligne correcte.\n",
+           grille[0]);
+    printf("\n");
+    printf("Voilà les autres lignes.\n");
+    for (int i = 1; i < taille; ++i) {
+        do {
+            generation_ligne(taille, grille, i, tab_code, &code_lig);
+        } while (ligne_correcte(taille, grille, 0, tab_code, code_lig) == false);
+        printf("grille[%d]=%s\n", i, grille[i]);
+    }
+
+    printf("Leur code est correct et elles sont toutes différentes.\n"
+           "On vérifie ensuite que la grille obtenue soit entièrement correcte.\n");
+    pause();
+
+    printf("Si elle ne l'est pas, alors on refait la grille comme ci-dessous :\n");
+    reinit_grille(grille, taille);
+    afficher_grille(grille);
+    printf("et on refait toutes les étapes de génération précisées ci-dessus.\n");
+    pause();
+
+    printf("Jusqu'à obtenir une grille qui soit correcte, comme celle qui a déjà été générée dans le menu.\n");
 
     free(tab_code);
     tab_code = NULL;
+    release_mat(&grille);
 }
