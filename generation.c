@@ -94,7 +94,8 @@ void afficher_generation(int taille) {
     printf("Voici la première ligne obtenue: %s\n"
            "On l'a générée grâce à un code aléatoire, puis on a vérifié qu'il permettrait une ligne correcte.\n",
            grille[0]);
-    printf("\n");
+    pause();
+
     printf("Voilà les autres lignes.\n");
     for (int i = 1; i < taille; ++i) {
         do {
@@ -102,12 +103,11 @@ void afficher_generation(int taille) {
         } while (ligne_correcte(taille, grille, 0, tab_code, code_lig) == false);
         printf("grille[%d]=%s\n", i, grille[i]);
     }
-
     printf("Leur code est correct et elles sont toutes différentes.\n"
            "On vérifie ensuite que la grille obtenue soit entièrement correcte.\n");
     pause();
 
-    printf("Si elle ne l'est pas, alors on refait la grille comme ci-dessous :\n");
+    printf("Si elle ne l'est pas, alors on refait la grille comme ci-dessous :");
     reinit_grille(grille, taille);
     afficher_grille(grille);
     printf("et on refait toutes les étapes de génération précisées ci-dessus.\n");
