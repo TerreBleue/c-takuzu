@@ -10,6 +10,7 @@
  * @param sol Solution
  * @param masque Masque
  * @param vies Nombre de vies
+ * @return Rien, cela ne fait que modifier.
  */
 void resoudre_grille(char **sol, char **masque, int vies);
 

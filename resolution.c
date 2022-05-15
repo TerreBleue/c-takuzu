@@ -1,6 +1,15 @@
 #include "resolution.h"
 
-
+/**
+ * Essaie d'entrer un coup, et s'il n'est pas correct (mauvaise valeur) alors on rentre la valeur inversée au même endroit.
+ * @param grille La grille de jeu
+ * @param sol La grille solution
+ * @param i L'emplacement ligne
+ * @param j L'emplacement colonne
+ * @param valeur La valeur binaire à entrer
+ * @param vies Le nombre de vies restantes
+ * @return Rien, cela ne fait qu'afficher et modifier.
+ */
 void entree_auto_securisee(char **grille, char **sol, int i, int j, char valeur, int *vies) {
     int res;
     res = valider_coup(grille, sol, i, j, valeur, vies);
@@ -15,6 +24,13 @@ void entree_auto_securisee(char **grille, char **sol, int i, int j, char valeur,
     } else { printf("il y a une erreur !!!"); }
 }
 
+/**
+ * Fonction interne récupérant un coup à entrer (la valeur et l'emplacement).
+ * @param grille La grille
+ * @param indice L'indice
+ * @param val_entree La valeur qui sera entrée
+ * @param i_hint L'emplacement de colonne/ligne
+ */
 void entree_indice_23(char **grille, INDICE indice, char *val_entree, int *i_hint) {
     int temp = *i_hint;
     if (indice.code == 2) {
@@ -31,6 +47,18 @@ void entree_indice_23(char **grille, INDICE indice, char *val_entree, int *i_hin
     *i_hint = temp;
 }
 
+/**
+ * Fonction interne gérant les entrées pour l'indice de code 2 ou 3.
+ * @param grille La grille de jeu
+ * @param sol La grille solution
+ * @param indice L'indice
+ * @param i_lig L'emplacement de ligne
+ * @param i_col L'emplacement de colonne
+ * @param val_entree La valeur à entrer
+ * @param i_hint L'emplacement de colonne/ligne (qui sera modifiée deux fois)
+ * @param vies Le nombre de vies restantes
+ * @return Rien, cela ne fait qu'afficher et modifier
+ */
 void inputs_indices_23(char **grille, char **sol, INDICE indice, int *i_lig, int *i_col, char *val_entree, int *i_hint,
                        int *vies) {
     if (indice.code == 2) {

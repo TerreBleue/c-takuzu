@@ -40,6 +40,7 @@ int nombre_inconnues(const char *str);
  * * * 3 : ce sont des colonnes\n
  * @param indice L'indice modifié
  * @param mat La grille jeu
+ * @return Rien, cela ne fait que modifier.
  */
 void donner_indice(INDICE* indice, char **mat);
 
@@ -47,6 +48,7 @@ void donner_indice(INDICE* indice, char **mat);
  * Affiche l'indice selon la valeur de son code.
  * @param sol Grille solution
  * @param indice L'indice
+ * @return Rien, cela ne fait que modifier.
  */
 void afficher_indice(char** sol, INDICE indice);
 

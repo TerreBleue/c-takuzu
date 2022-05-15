@@ -85,8 +85,8 @@ int menu() {
         }
         printf("\n");
 
-        if (masque != NULL) release_mat(&masque);
-        release_mat(&sol);
+        if (masque != NULL) free_mat(&masque);
+        free_mat(&sol);
     }
 
 }

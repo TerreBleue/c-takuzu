@@ -47,12 +47,14 @@ char **static_to_dynamic(int taille);
  * @param sol Solution
  * @param masque Masque
  * @param grille_jeu Grille jeu (sera modifiée)
+ * @return Rien, cela ne fait que modifier.
  */
 void actualiser_grille_jeu(char **sol, char **masque, char **grille_jeu);
 
 /**
  * Affiche une grille jeu de manière intelligente (avec les indices de lignes et de colonnes).
  * @param grille La grille jeu
+ * @return Rien, cela ne fait que modifier.
  */
 void afficher_grille(char **grille);
 
@@ -61,6 +63,7 @@ void afficher_grille(char **grille);
  * Contrairement à afficher_grille, cela utilise les grilles solution et masque.
  * @param solution Solution
  * @param masque Masque
+ * @return Rien, cela ne fait que modifier.
  */
 void afficher_grille_masque(char **solution, char **masque);
 
@@ -68,8 +71,9 @@ void afficher_grille_masque(char **solution, char **masque);
  * Libère entièrement une matrice. \n
  * Cela met aussi son pointeur à NULL.
  * @param mat La matrice à libérer (non réversible)
+ * @return Rien, cela ne fait que modifier.
  */
-void release_mat(char ***mat);
+void free_mat(char ***mat);
 
 /**
  * Booléen qui donne l'état de complétion de la grille jeu.

@@ -15,6 +15,7 @@ char** generer_grille(int taille);
 /**
  * Affiche toutes les lignes correctes possibles d'une taille donnée.
  * @param taille La taille
+ * @return Rien, cela ne fait qu'afficher des choses.
  */
 void afficher_lignes_correctes(int taille);
 

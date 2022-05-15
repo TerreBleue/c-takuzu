@@ -23,7 +23,7 @@ int size(char **str) {
 void afficher_grille_masque(char **solution, char **masque) {
     int taille = size(solution);
 
-    // affichage indice des colonnes
+    // affichage indice colonnes
     for (int i = 0; i < taille; ++i) printf("%c ", 'A' + i);
     printf("\n");
     for (int i = 0; i < taille; ++i) printf("| ");
@@ -61,24 +61,24 @@ char **static_to_dynamic(int taille) {
             "11001001"
     };
 
-    char **new_mat = (char **) calloc(taille, sizeof(char *));
+    char **nv_mat = (char **) calloc(taille, sizeof(char *));
     for (int i = 0; i < taille; ++i) {
-        new_mat[i] = (char *) calloc(taille, sizeof(char));
+        nv_mat[i] = (char *) calloc(taille, sizeof(char));
         switch (taille) {
             case 4:
-                strncpy(new_mat[i], m4[i], taille);
+                strncpy(nv_mat[i], m4[i], taille);
                 break;
             case 8:
-                strncpy(new_mat[i], m8[i], taille);
+                strncpy(nv_mat[i], m8[i], taille);
                 break;
             default:
                 printf("La taille de matrice %d n'est pas prise en charge.\n", taille);
         }
     }
-    return new_mat;
+    return nv_mat;
 }
 
-void release_mat(char ***mat) {
+void free_mat(char ***mat) {
     int taille = (int) strlen((*mat)[0]);
     for (int i = 0; i < taille; ++i) free((*mat)[i]);
     free(*mat);
@@ -136,7 +136,7 @@ int grille_correcte(char **grille) {
                     if (grille[i][k] != INCONNUE && grille[i][k] == grille[j][k]) cpt_sim_lig++;
                     if (grille[k][i] != INCONNUE && grille[k][i] == grille[k][j]) cpt_sim_col++;
                 }
-                if (cpt_sim_lig >= taille - 1 || cpt_sim_col >= taille - 1) return -3;
+                if (cpt_sim_lig >= taille - 1 || cpt_sim_col >= taille - 1) return -3; // 2 lignes/colonnes égales
 
             }
 
@@ -162,9 +162,9 @@ int grille_correcte(char **grille) {
             }
 
             if (cpt_lig_0 > taille / 2 || cpt_col_0 > taille / 2 || cpt_lig_1 > taille / 2 || cpt_col_1 > taille / 2) {
-                return -1;
+                return -1; // pas autant de 0 ou de 1
             }
-            if (suite_lig != INCONNUE && cpt_suite_lig > 2 || suite_col != INCONNUE && cpt_suite_col > 2) return -2;
+            if (suite_lig != INCONNUE && cpt_suite_lig > 2 || suite_col != INCONNUE && cpt_suite_col > 2) return -2; // suite de trois 0 ou 1
         }
     }
 

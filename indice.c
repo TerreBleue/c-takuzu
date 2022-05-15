@@ -6,6 +6,14 @@ int nombre_inconnues(const char *str) {
     return cpt;
 }
 
+/**
+ * Fonction interne indiquant s'il y a une suite de deux 0 ou 1.
+ * @param mat La grille de jeu
+ * @param nb_teste La valeur des éléments de la suite
+ * @param i L'emplacement ligne où l'on essaie d'entrer une valeur
+ * @param j L'emplacement colonne
+ * @return true si on peut entrer une valeur parce qu'il y a une suite adjacente, sinon false
+ */
 bool si_suite(char **mat, char nb_teste, int i, int j) {
     int taille = size(mat);
     if (i < taille - 2 && mat[i + 1][j] == nb_teste && mat[i + 2][j] == nb_teste
@@ -18,6 +26,14 @@ bool si_suite(char **mat, char nb_teste, int i, int j) {
     return false;
 }
 
+/**
+ * Fonction interne indiquant s'il y a une inconnue entre deux 0 ou 1.
+ * @param mat La grille de jeu
+ * @param nb_teste La valeur des éléments de la suite
+ * @param i L'emplacement ligne où l'on essaie d'entrer une valeur
+ * @param j L'emplacement colonne
+ * @return true si on peut entrer une valeur parce qu'il y a une inconnue entre deux nombres égaux, sinon false
+ */
 bool si_entoure(char **mat, char nb_teste, int i, int j) {
     int taille = size(mat);
     if (0 < i && i < taille - 1 && mat[i - 1][j] == nb_teste && mat[i + 1][j] == nb_teste
@@ -27,6 +43,13 @@ bool si_entoure(char **mat, char nb_teste, int i, int j) {
     return false;
 }
 
+/**
+ * Fonction interne indiquant si la ligne i (partielle) et la ligne j (entièrement remplie) sont similaires.
+ * @param mat La grille de jeu
+ * @param i L'indice de ligne partielle
+ * @param j L'indice de ligne entièrement remplie
+ * @return true si on peut entrer deux valeurs parce que les lignes sont similaires, sinon false
+ */
 bool lignes_similaires(char **mat, int i, int j) {
     int taille = size(mat);
     if (nombre_inconnues(mat[i]) != 2 || nombre_inconnues(mat[j]) != 0) return false;
@@ -38,6 +61,13 @@ bool lignes_similaires(char **mat, int i, int j) {
     return true;
 }
 
+/**
+ * Fonction interne indiquant si la colonne i (partielle) et la colonne j (entièrement remplie) sont similaires.
+ * @param mat La grille de jeu
+ * @param i L'indice de colonne partielle
+ * @param j L'indice de colonne entièrement remplie
+ * @return true si on peut entrer deux valeurs parce que les colonnes sont similaires, sinon false
+ */
 bool colonnes_similaires(char **mat, int i, int j) {
     bool sont_similaires = true;
     int i_lig, taille = size(mat), nb_diff = 0;
@@ -61,6 +91,14 @@ bool colonnes_similaires(char **mat, int i, int j) {
     return sont_similaires;
 }
 
+/**
+ * Modifie simplement l'indice donné en paramètre en fonction des autres.
+ * @param indice L'indice modifié
+ * @param i La valeur principale
+ * @param j La valeur secondaire
+ * @param nb_bin Le nombre binaire
+ * @return Rien, cela ne fait que modifier
+ */
 void modifier_indice(INDICE *indice, int i, int j, char nb_bin) {
     indice->val_principale = i, indice->val_secondaire = j;
     indice->nombre_binaire = nb_bin;

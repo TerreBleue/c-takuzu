@@ -35,7 +35,7 @@ void jouer(char **sol, char **masque, int vies) {
     int taille = size(sol);
     INDICE indice;
     char **grille_jeu = creer_mat(taille);
-    int entree_lig, i_lig, i_col, code;
+    int entree_lig, i_lig, i_col;
     char entree_empl[3], *entree_col, val_entree;
     actualiser_grille_jeu(sol, masque, grille_jeu);
 

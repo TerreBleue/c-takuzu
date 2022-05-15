@@ -1,6 +1,11 @@
 #include "generation.h"
 
-
+/**
+ * Remet chaque valeur de la matrice à INCONNUE.
+ * @param grille La grille à modifier
+ * @param taille La taille de la grille
+ * @return Rien, car elle modifie et ne crée rien.
+ */
 void reinit_grille(char **grille, int taille) {
     for (int i = 0; i < taille; ++i) {
         for (int j = 0; j < taille; ++j) {
@@ -9,15 +14,22 @@ void reinit_grille(char **grille, int taille) {
     }
 }
 
+/**
+ * Regarde la validité du code décimal et de son tableau.
+ * @param code Le code décimal
+ * @param tab_code Le nombre binaire du code en tableau
+ * @param taille La taille du tableau
+ * @return true si valides, sinon false
+ */
 bool verif_code(int code, const int *tab_code, int taille) {
     if (code < 0 || code > pow(2, taille) - 1) return false;
 
-    int sum = 0, suite = 1;
+    int somme = 0, suite = 1;
     int val_suite = tab_code[0];
 
     if (taille % 2 == 0) {
-        for (int i = 0; i < taille; ++i) sum += tab_code[i];
-        if (sum != taille / 2) return false;
+        for (int i = 0; i < taille; ++i) somme += tab_code[i];
+        if (somme != taille / 2) return false;
     }
 
     for (int i = 0; i < taille; ++i) {
@@ -32,7 +44,13 @@ bool verif_code(int code, const int *tab_code, int taille) {
     return true;
 }
 
-bool comparer_lig(int i, char **grille) {
+/**
+ * Compare une ligne aux autres.
+ * @param i L'indice de la ligne comparée
+ * @param grille La grille
+ * @return true si elle est unique, sinon false
+ */
+bool lig_unique(int i, char **grille) {
     int taille = size(grille);
     for (int j = 0; j < taille; ++j) {
         if (i == j) continue;
@@ -41,6 +59,16 @@ bool comparer_lig(int i, char **grille) {
     return true;
 }
 
+/**
+ * Génère une ligne. \n
+ * La fonction ne protège pas contre l'invalidité de la ligne obtenue / son unicité, il faut utiliser ligne_correcte.
+ * @param taille La taille de la grille
+ * @param grille La grille
+ * @param i L'indice de la ligne
+ * @param tab_code Le tableau binaire préalablement alloué
+ * @param code_lig Le code décimal
+ * @return Rien, elle ne fait que modifier
+ */
 void generation_ligne(int taille, char **grille, int i, int *tab_code, int *code_lig) {
     *code_lig = rand() % (int) pow(2, taille);
     int temp = *code_lig;
@@ -51,11 +79,28 @@ void generation_ligne(int taille, char **grille, int i, int *tab_code, int *code
     }
 }
 
+/**
+ * Cela vérifie si le code est correct, si le tableau binaire l'est aussi, et si la ligne est unique.
+ * @param taille La taille de la grille
+ * @param grille La grille
+ * @param i L'indice de la ligne
+ * @param tab_code Le tableau binaire préalablement alloué
+ * @param code_lig Le code décimal
+ * @return Un booléen indiquant la validité de la ligne (true si correct, sinon false).
+ */
 bool ligne_correcte(int taille, char **grille, int i, int *tab_code, int code_lig) {
-    if (verif_code(code_lig, tab_code, taille) == false || comparer_lig(i, grille) == false) return false;
+    if (verif_code(code_lig, tab_code, taille) == false || lig_unique(i, grille) == false) return false;
     return true;
 }
 
+/**
+ * Génère toutes les lignes de la grille, qui sont toutes correctes.\n
+ * Cela ne vérifie pas si les colonnes sont elles-mêmes correctes.
+ * @param taille La taille de la grille
+ * @param grille La grille
+ * @param tab_code Le tableau décimal préalablement alloué
+ * @return Rien, cela ne fait que modifier
+ */
 void generation_lignes_correctes(int taille, char **grille, int *tab_code) {
     int code_lig;
     for (int i = 0; i < taille; ++i) {
@@ -117,7 +162,7 @@ void afficher_generation(int taille) {
 
     free(tab_code);
     tab_code = NULL;
-    release_mat(&grille);
+    free_mat(&grille);
 }
 
 void afficher_lignes_correctes(int taille) {
