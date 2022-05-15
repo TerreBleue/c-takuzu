@@ -90,7 +90,6 @@ void inputs_indices_23(char **grille, char **sol, INDICE indice, int *i_lig, int
     }
 }
 
-
 void resoudre_grille(char **sol, char **masque, int vies) {
     INDICE indice;
     int taille = size(sol), i_lig, i_col, i_hint;

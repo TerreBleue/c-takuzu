@@ -1,6 +1,6 @@
 #include "indice.h"
 
-int nombre_manquants(const char *str) {
+int nombre_inconnues(const char *str) {
     int taille = (int) strlen(str), cpt = 0;
     for (int i = 0; i < taille; ++i) if (str[i] == INCONNUE) cpt++;
     return cpt;
@@ -29,7 +29,7 @@ bool si_entoure(char **mat, char nb_teste, int i, int j) {
 
 bool lignes_similaires(char **mat, int i, int j) {
     int taille = size(mat);
-    if (nombre_manquants(mat[i]) != 2 || nombre_manquants(mat[j]) != 0) return false;
+    if (nombre_inconnues(mat[i]) != 2 || nombre_inconnues(mat[j]) != 0) return false;
 
     int nb_diff = 0, i_col = -1;
     while (++i_col < taille) if (mat[i][i_col] != mat[j][i_col]) nb_diff++;
@@ -49,7 +49,7 @@ bool colonnes_similaires(char **mat, int i, int j) {
         col2[i_lig] = mat[i_lig][j];
     }
 
-    if (nombre_manquants(col1) != 2 || nombre_manquants(col2) != 0) sont_similaires = false;
+    if (nombre_inconnues(col1) != 2 || nombre_inconnues(col2) != 0) sont_similaires = false;
 
     i_lig = -1;
     while (sont_similaires == true && ++i_lig < taille) if (col1[i_lig] != col2[i_lig]) nb_diff++;

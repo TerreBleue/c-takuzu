@@ -27,7 +27,7 @@ typedef struct {
  * @param str La chaine de caractères
  * @return Le nombre d'inconnues
  */
-int nombre_manquants(const char *str);
+int nombre_inconnues(const char *str);
 
 /**
  * Modifie l'indice donné en paramètre selon ce qui peut être donné.\n
