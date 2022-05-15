@@ -9,7 +9,19 @@
 #include <stdio.h>
 
 /**
- * Jouer au Takuzu à l'aide d'une solution et d'un masque déjà générés.
+ * Demande la validation d'un coup entré à un emplacement entré.
+ * @param grille La grille de jeu
+ * @param sol La grille solution
+ * @param i_ligne Indice ligne
+ * @param i_colonne Indice colonne
+ * @param valeur Valeur binaire entrée
+ * @param vies Nombre de vies restantes
+ * @return 1 si valide et correct ; 0 si valide mais incorrect ; -1 si invalide.
+ */
+int valider_coup(char **grille, char **sol, int i_ligne, int i_colonne, char valeur, int *vies);
+
+/**
+ * Joue au Takuzu à l'aide d'une solution et d'un masque déjà générés.
  *
  * @param sol Grille solution
  * @param masque Grille masque

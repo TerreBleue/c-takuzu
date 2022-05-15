@@ -3,6 +3,7 @@
 #include "fonctions.h"
 #include "masque.h"
 #include "indice.h"
+#include "jeu.h"
 
 /**
  * Résout une grille automatiquement.

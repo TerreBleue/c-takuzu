@@ -1,37 +1,6 @@
 #include "resolution.h"
 
 
-int valider_coup(char **grille, char **sol, int i, int j, char valeur, int *vies) {
-    if (grille[i][j] != INCONNUE) {
-        printf("Cette case a déjà été remplie.\n");
-        return -4;
-    }
-
-    int code, resultat;
-    code = grille_correcte(grille);
-    if (code == 1) {
-        if (sol[i][j] == valeur) {
-            printf("Coup valide et correct !\n");
-            grille[i][j] = sol[i][j];
-            resultat = 1;
-        } else {
-            printf("Coup valide mais incorrect.\n");
-            resultat = 0;
-        }
-    } else {
-        resultat = -1;
-        printf("Coup invalide... Il vous reste %d vie(s).\n", --(*vies));
-        if (code == -1) {
-            printf("Il doit y avoir autant de 0 que de 1 dans les lignes et les colonnes de la grille.\n");
-        } else if (code == -2) { printf("Il ne doit pas y avoir plus de 2 chiffres identiques côte à côte.\n"); }
-        else { printf("2 lignes ou 2 colonnes ne peuvent être identiques.\n"); } // code -3
-        printf("\n");
-    }
-
-    afficher_grille(grille);
-    return resultat;
-}
-
 void entree_auto_securisee(char **grille, char **sol, int i, int j, char valeur, int *vies) {
     int res;
     res = valider_coup(grille, sol, i, j, valeur, vies);
