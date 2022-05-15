@@ -5,13 +5,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-
-/**
- * Alloue une matrice de taille donnée.
- * @param taille La taille
- * @return Un pointeur vers cette matrice
- */
-char** creer_mat(int taille);
+#include "fonctions.h"
 
 /**
  * Crée un masque de taille donnée selon les entrées du joueur

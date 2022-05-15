@@ -1,13 +1,6 @@
 
 #include "masque.h"
 
-char **creer_mat(int taille) {
-    char **masque = (char **) calloc(taille, sizeof(char *));
-    for (int i = 0; i < taille; i++) {
-        masque[i] = (char *) calloc((taille + 1), sizeof(char)); // caractère nul
-    }
-    return masque;
-}
 
 char **masque_manuel(int taille) {
     char **masque = creer_mat(taille);

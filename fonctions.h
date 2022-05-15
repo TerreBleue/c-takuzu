@@ -20,6 +20,13 @@ void pause();
 void clear();
 
 /**
+ * Alloue une matrice de taille donnée.
+ * @param taille La taille
+ * @return Un pointeur vers cette matrice
+ */
+char** creer_mat(int taille);
+
+/**
  * Inverse un nombre binaire (en char) :\n
  * * '0' devient '1' ;\n
  * * '1' devient '0'

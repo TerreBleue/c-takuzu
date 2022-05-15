@@ -5,6 +5,8 @@ int menu() {
     int taille, choix = -1, scanf_res;
 
     char **masque = NULL, **sol = NULL;
+    printf("N.B. : le programme protège les entrées, mais les caractères en trop peuvent affecter la prochaine.\n"
+           "\n");
     while (1) {
         printf("Caractéristiques de la nouvelle grille solution.\n"
                "(Il est déconseillé d'entrer une taille de valeur 10 ou plus.)\n"

@@ -12,6 +12,14 @@ void clear() {
     }
 }
 
+char **creer_mat(int taille) {
+    char **masque = (char **) calloc(taille, sizeof(char *));
+    for (int i = 0; i < taille; i++) {
+        masque[i] = (char *) calloc((taille + 1), sizeof(char)); // caractère nul
+    }
+    return masque;
+}
+
 char inv_bool(char bin) {
     return bin == '1' ? '0' : '1';
 }
