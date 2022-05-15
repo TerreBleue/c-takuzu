@@ -13,6 +13,7 @@
 void entree_auto_securisee(char **grille, char **sol, int i, int j, char valeur, int *vies) {
     int res;
     res = valider_coup(grille, sol, i, j, valeur, vies);
+    afficher_grille(grille);
     pause();
     if (res == 1) { return; }
     else if (res == 0) {
@@ -20,6 +21,7 @@ void entree_auto_securisee(char **grille, char **sol, int i, int j, char valeur,
         printf("ligcol et val=%d%c %c\n", i + 1, j + 'A', valeur);
         printf("La valeur précédente est valide mais incorrecte ; on essaie alors son inverse.\n");
         valider_coup(grille, sol, i, j, valeur, vies);
+        afficher_grille(grille);
         pause();
     } else { printf("il y a une erreur !!!"); }
 }
