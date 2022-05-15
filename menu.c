@@ -77,7 +77,7 @@ int menu() {
                     scanf_res = scanf("%d", &choix);
                     if (scanf_res == 0) scanf("%*s");
                 } while (choix < 1 || choix > 3);
-                if (choix == 2) { afficher_grille(sol); }
+                if (choix == 2) { afficher_lignes_correctes(taille); }
                 else if (choix == 3) afficher_generation(taille);
                 break;
             default:

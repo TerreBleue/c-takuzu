@@ -119,3 +119,24 @@ void afficher_generation(int taille) {
     tab_code = NULL;
     release_mat(&grille);
 }
+
+void afficher_lignes_correctes(int taille) {
+    int *tab_code = (int *) calloc(taille, sizeof(int));
+    char *tab_code_char = (char*) calloc(taille + 1, sizeof(char));
+    int code_lig, temp;
+    printf("Lignes correctes :\n");
+
+    for (int i = 0; i < pow(2, taille); ++i) {
+        code_lig = i;
+        temp = code_lig;
+        for (int j = 0; j < taille; ++j) {
+            tab_code[j] = temp % 2;
+            temp /= 2;
+            tab_code_char[j] = (char) (tab_code[j] + '0');
+        }
+        if (verif_code(code_lig, tab_code, taille) == true) printf("%s\n", tab_code_char);
+    }
+
+    free(tab_code_char), tab_code_char = NULL;
+    free(tab_code), tab_code = NULL;
+}

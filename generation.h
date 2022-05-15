@@ -11,6 +11,13 @@
  * @return Un pointeur vers la grille solution générée
  */
 char** generer_grille(int taille);
+
+/**
+ * Affiche toutes les lignes correctes possibles d'une taille donnée.
+ * @param taille La taille
+ */
+void afficher_lignes_correctes(int taille);
+
 /**
  * Génère une grille solution et affiche chaque grille avec les lignes correctes.
  * @param taille La taille de la grille
