@@ -66,15 +66,6 @@ void modifier_indice(INDICE *indice, int i, int j, char nb_bin) {
     indice->nombre_binaire = nb_bin;
 }
 
-/**
- * Donne un indice selon l'état de la grille. \n
- * \n
- * Si indice sur 1 emplacement : val_principale et val_secondaires --> lig et col \n
- * Sinon tab à modifier // tab similaire rempli\n
- * nb_teste (si non nul) est la valeur à entrer
- * @param indice L'indice modifié
- * @param mat La grille de jeu
- */
 void donner_indice(INDICE *indice, char **mat) {
     int taille = size(mat), i, j, bin;
     char nb_teste, nb_res = '\0';

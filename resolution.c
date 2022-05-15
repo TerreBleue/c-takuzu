@@ -8,7 +8,7 @@ void entree_auto_securisee(char **grille, char **sol, int i, int j, char valeur,
     if (res == 1) { return; }
     else if (res == 0) {
         valeur = inv_bool(valeur);
-        printf("empl et val=%d%c %c\n", i + 1, j + 'A', valeur);
+        printf("ligcol et val=%d%c %c\n", i + 1, j + 'A', valeur);
         printf("La valeur précédente est valide mais incorrecte ; on essaie alors son inverse.\n");
         valider_coup(grille, sol, i, j, valeur, vies);
         pause();
@@ -47,7 +47,7 @@ void inputs_indices_23(char **grille, char **sol, INDICE indice, int *i_lig, int
         *i_col = indice.val_principale;
 
         entree_indice_23(grille, indice, val_entree, i_hint);
-        printf("empl et val=%d%c %c\n", *i_hint + 1, *i_col + 'A', *val_entree);
+        printf("ligcol et val=%d%c %c\n", *i_hint + 1, *i_col + 'A', *val_entree);
         afficher_indice(sol, indice);
         entree_auto_securisee(grille, sol, *i_hint, *i_col, *val_entree, vies);
 
