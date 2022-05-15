@@ -1,38 +1,41 @@
 #include "generation.h"
 
 
+void reinit_grille(char **grille, int taille) {
+    for (int i = 0; i < taille; ++i) {
+        for (int j = 0; j < taille; ++j) {
+            grille[i][j] = INCONNUE;
+        }
+    }
+}
+
 bool verif_code(int code, const int *tab_code, int taille) {
     if (code < 0 || code > pow(2, taille) - 1) return false;
 
-
     int sum = 0, suite = 1;
-    int val_suite;
-    bool code_correct = true;
-    val_suite = tab_code[0];
+    int val_suite = tab_code[0];
 
     if (taille % 2 == 0) {
         for (int i = 0; i < taille; ++i) sum += tab_code[i];
-        if (sum != taille / 2) code_correct = false;
+        if (sum != taille / 2) return false;
     }
 
-    if (code_correct == true) {
-        for (int i = 0; i < taille; ++i) {
-            if (val_suite != tab_code[i]) {
-                suite = 1;
-                val_suite = tab_code[i];
-            } else { suite++; }
+    for (int i = 0; i < taille; ++i) {
+        if (val_suite != tab_code[i]) {
+            suite = 1;
+            val_suite = tab_code[i];
+        } else { suite++; }
 
-            if (suite > 2) code_correct = false;
-        }
+        if (suite > 2) return false;
     }
 
-    return code_correct;
+    return true;
 }
 
-bool comparer_lig_prec(int i, char **grille) {
-    if (i == 0) return true;
-
-    for (int j = 0; j < i; ++j) { // parcourt les lignes avant grille[i]
+bool comparer_lig(int i, char **grille) {
+    int taille = size(grille);
+    for (int j = 0; j < taille; ++j) {
+        if (i == j) continue;
         if (strcmp(grille[j], grille[i]) == 0) return false;
     }
     return true;
@@ -40,15 +43,16 @@ bool comparer_lig_prec(int i, char **grille) {
 
 void generation_ligne(int taille, char **grille, int i, int *tab_code, int *code_lig) {
     *code_lig = rand() % (int) pow(2, taille);
+    int temp = *code_lig;
     for (int j = 0; j < taille; ++j) {
-        tab_code[j] = *code_lig % 2;
-        *code_lig /= 2;
+        tab_code[j] = temp % 2;
+        temp /= 2;
         grille[i][j] = (char) (tab_code[j] + '0');
     }
 }
 
 bool ligne_correcte(int taille, char **grille, int i, int *tab_code, int code_lig) {
-    if (verif_code(code_lig, tab_code, taille) == false || comparer_lig_prec(i, grille) == false) return false;
+    if (verif_code(code_lig, tab_code, taille) == false || comparer_lig(i, grille) == false) return false;
     return true;
 }
 
@@ -57,23 +61,22 @@ void generation_lignes_correctes(int taille, char **grille, int *tab_code) {
     for (int i = 0; i < taille; ++i) {
         do {
             generation_ligne(taille, grille, i, tab_code, &code_lig);
-        } while (ligne_correcte(taille, grille, i, tab_code, code_lig) ? false : true); // refaire ligne que si incorrecte
+        } while (ligne_correcte(taille, grille, i, tab_code, code_lig) == false); // refaire ligne que si incorrecte
     }
 }
 
 char **generer_grille(int taille) {
-    clock_t tic = clock();
     int *tab_code = (int *) calloc(taille, sizeof(int));
     char **grille = creer_masque(taille);
-
+    int cpt = 0;
     do {
+        cpt++, reinit_grille(grille, taille);
         generation_lignes_correctes(taille, grille, tab_code);
     } while (grille_correcte(grille) < 0);
 
+    printf("Il a fallu %d essais pour créer la grille.\n", cpt);
     free(tab_code);
     tab_code = NULL;
-    clock_t toc = clock();
-    printf("Temps de génération de la grille en secondes : %f\n", (toc - tic) / CLOCKS_PER_SEC);
     return grille;
 }
 
