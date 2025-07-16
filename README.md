@@ -1,8 +1,10 @@
+Takuzu 
+=== 
+Liste des programmes
+---
+- main.c : programme principal. En pratique, il suffit d'exécuter ce programme.
 
-Liste des programmes :
-- main.c : programme principal
-
-En pratique, il ne suffit qu'à exécuter ce programme.
+Autres fichiers :
 - functions.c / functions.h : programme comportant des fonctions utiles à d'autres
 - masque.c / masque.h : programme qui gère la création et l'initialisation des masques
 - generation.c / generation.h : programme de génération automatique de la grille solution
@@ -12,8 +14,8 @@ En pratique, il ne suffit qu'à exécuter ce programme.
 - jeu.c / jeu.h : programme du jeu de Takuzu (dont vous pourrez y jouer !)
 - resolution.c / resolution.h : programme de résolution automatique d'une grille jeu
 
-
 Comment utiliser le projet ?
+---
 - Compiler l'ensemble du projet.
 - Exécuter main.c
 - Vous arriverez devant un menu qui se boucle à chaque fin d'action.
